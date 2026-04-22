@@ -1,0 +1,244 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  relationMode = "prisma"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// ─── Auth Models ─────────────────────────────────────────────
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String?
+  hashedPassword String?
+  role           UserRole  @default(USER)
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  refreshTokens  RefreshToken[]
+  purchases      Purchase[]
+  userProgress   UserProgress[]
+  promoCodeUsages PromoCodeUsage[]
+}
+
+model OAuthClient {
+  id           String   @id @default(cuid())
+  clientId     String   @unique
+  clientSecret String   // hashed
+  name         String
+  grants       String   @db.Text // JSON array: ["password","client_credentials","refresh_token"]
+  scopes       String   @db.Text // JSON array: ["read","write","admin"]
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  refreshTokens RefreshToken[]
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String?
+  clientId  String?
+  scopes    String   @db.Text // JSON array
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user   User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client OAuthClient? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([clientId])
+  @@index([token])
+}
+
+// ─── Course Models ───────────────────────────────────────────
+
+model Category {
+  id   String @id @default(cuid())
+  name String @unique
+  slug String @unique
+
+  courses Course[]
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?  @db.Text
+  imageUrl    String?  @db.Text
+  price       Decimal? @db.Decimal(10, 2)
+  isPublished Boolean  @default(false)
+  isListed    Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  featuredOrder Int    @default(0)
+
+  outcomes     String? @db.Text
+  requirements String? @db.Text
+  authorName   String?
+  authorRole   String?
+
+  categories  Category[]
+  chapters    Chapter[]
+  attachments Attachment[]
+  purchases   Purchase[]
+  promoCodes  PromoCode[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chapter {
+  id          String  @id @default(cuid())
+  title       String
+  description String? @db.Text
+  videoUrl    String? @db.Text
+  timecodes   String? @db.Text
+  notes       String? @db.LongText
+  homework    String? @db.LongText
+  position    Int
+  isPublished Boolean @default(false)
+  isFree      Boolean @default(false)
+
+  courseId String
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model Attachment {
+  id   String @id @default(cuid())
+  name String
+  url  String @db.Text
+
+  courseId String
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+// ─── Commerce Models ─────────────────────────────────────────
+
+model Purchase {
+  id        String  @id @default(cuid())
+  userId    String
+  courseId   String
+  amount    Decimal @db.Decimal(10, 2)
+  promoCode String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+model PromoCode {
+  id              String    @id @default(cuid())
+  code            String    @unique
+  courseId        String
+  discountPercent Int
+  maxUses         Int?
+  currentUses     Int       @default(0)
+  expiresAt       DateTime
+  isActive        Boolean   @default(true)
+
+  course Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  usages PromoCodeUsage[]
+
+  createdAt DateTime @default(now())
+
+  @@index([courseId])
+  @@index([code])
+}
+
+model PromoCodeUsage {
+  id          String @id @default(cuid())
+  promoCodeId String
+  userId      String
+
+  promoCode PromoCode @relation(fields: [promoCodeId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([promoCodeId, userId])
+  @@index([promoCodeId])
+  @@index([userId])
+}
+
+model UserProgress {
+  id          String  @id @default(cuid())
+  userId      String
+  chapterId   String
+  isCompleted Boolean @default(false)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([userId])
+  @@index([chapterId])
+}
+
+// ─── Content Models ──────────────────────────────────────────
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+  slug String @unique
+
+  posts Post[]
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?   @db.Text
+  content     String?   @db.Text
+  imageUrl    String?   @db.Text
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+
+  tags Tag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model YouTubeVideo {
+  id          String  @id @default(cuid())
+  title       String
+  videoId     String
+  description String? @db.Text
+  position    Int     @default(0)
+  isPublished Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
