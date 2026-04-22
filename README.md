@@ -51,6 +51,45 @@ npm run dev
 | `JWT_SECRET`   | Secret for JWT signing (min 32 chars) | `your-random-secret-string-here-32chars`        |
 | `UPLOAD_DIR`   | Directory for uploaded files          | `/tmp/dojo-api-uploads`                         |
 
+## Connecting to the Database
+
+You can connect to the database using any MySQL-compatible client or GUI tool.
+
+**Default connection details** (from `.env`):
+
+| Parameter | Value             |
+| --------- | ----------------- |
+| Host      | `localhost`       |
+| Port      | `3306`            |
+| User      | `root`            |
+| Password  | *(from your .env)*|
+| Database  | `dojo_api`        |
+
+### CLI
+
+```bash
+mysql -u root -h localhost -P 3306 dojo_api
+```
+
+### GUI Tools
+
+Use the same connection details above in any of these tools:
+
+- **[DBeaver](https://dbeaver.io/)** (free, cross-platform)
+- **[MySQL Workbench](https://www.mysql.com/products/workbench/)** (official MySQL GUI)
+- **[TablePlus](https://tableplus.com/)** (macOS/Windows/Linux)
+- **[DataGrip](https://www.jetbrains.com/datagrip/)** (JetBrains, paid)
+
+### Prisma Studio
+
+Prisma includes a built-in database browser:
+
+```bash
+npm run db:studio
+```
+
+This opens a web UI at `http://localhost:5555` where you can browse and edit all tables.
+
 ## API Documentation
 
 Visit **http://localhost:3000/api/docs** for interactive Swagger UI.
