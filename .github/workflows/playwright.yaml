@@ -48,8 +48,23 @@ jobs:
             - uses: actions/setup-node@v5
               with:
                   node-version: 22.17.1
+
+            - uses: shogo82148/actions-setup-mysql@v1
+              with:
+                  mysql-version: "9.6.0"
+            - run: mysql -uroot -e 'SELECT version()'
+
             - name: Install dependencies
               run: npm install
+
+            - name: Push schema to database
+              run: npm run db:push
+
+            - name: Seed sample data
+              run: npm run db:seed
+
+            - name: Start development server
+              run: npm run dev
 
             - name: Run api tests
               run: npx playwright test  --workers=${{ github.event.inputs.workersCount }}
