@@ -5,6 +5,7 @@ export default defineConfig({
   fullyParallel: false,
   retries: 0,
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
   },
+  reporter: [['html', { open: 'never' }]],
 });
