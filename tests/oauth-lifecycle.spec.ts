@@ -34,6 +34,7 @@ test('OAuth lifecycle: create client, get token, create entity, cleanup', async 
       client_secret: clientSecret,
     },
   });
+
   expect(newTokenRes.status()).toBe(200);
   const { access_token: newClientToken } = await newTokenRes.json();
 
@@ -41,6 +42,7 @@ test('OAuth lifecycle: create client, get token, create entity, cleanup', async 
   const userinfoRes = await request.get('/api/oauth/userinfo', {
     headers: { Authorization: `Bearer ${newClientToken}` },
   });
+
   expect(userinfoRes.status()).toBe(200);
   const userinfo = await userinfoRes.json();
   expect(userinfo.sub).toBe(clientId);
