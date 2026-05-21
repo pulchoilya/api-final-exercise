@@ -15,6 +15,7 @@ on:
                 options:
                     - "http://localhost:3000"
                     - "https://api.example.com"
+
             url:
                 description: "URL of the API to test"
                 required: true
@@ -26,6 +27,12 @@ on:
                 required: true
                 default: true
                 type: boolean
+
+            workersCount:
+                description: "How many workers to use for testing"
+                required: true
+                default: 3
+                type: number
 
             env:
                 description: "URL of the API to test"
@@ -44,7 +51,7 @@ jobs:
             - name: Install dependencies
               run: npm ci
             - name: Install Playwright Browsers
-              run: npx playwright install --with-deps
+              run: npx playwright install --workers=${{ github.event.inputs.workersCount }}
             - name: Run Playwright tests
               run: npx playwright test
             - uses: actions/upload-artifact@v4
