@@ -59,8 +59,15 @@ jobs:
                   mysql-version: "9.6.0"
             - run: mysql -uroot -e 'SELECT version()'
 
+            - name: Cache node_modules
+              uses: actions/cache@v4
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-node-
+
             - name: Install dependencies
-              run: npm install
+              run: npm ci
 
             - name: Push schema to database
               run: npm run db:push
@@ -69,10 +76,13 @@ jobs:
               run: npm run db:seed
 
             - name: Start development server
-              run: npm run dev
+              run: npm run dev &
+
+            - name: Wait for server to be ready
+              run: npx wait-on http://localhost:3000 --timeout 30000
 
             - name: Run api tests
-              run: npx playwright test  --workers=${{ github.event.inputs.workersCount }}
+              run: npx playwright test --workers=${{ github.event.inputs.workersCount }}
 
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
