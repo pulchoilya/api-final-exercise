@@ -47,13 +47,13 @@ jobs:
             - uses: actions/checkout@v5
             - uses: actions/setup-node@v5
               with:
-                  node-version: lts/*
+                  node-version: 22.17.1
             - name: Install dependencies
               run: npm ci
-            - name: Install Playwright Browsers
-              run: npx playwright install --workers=${{ github.event.inputs.workersCount }}
-            - name: Run Playwright tests
-              run: npx playwright test
+
+            - name: Run api tests
+              run: npx playwright test  --workers=${{ github.event.inputs.workersCount }}
+
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
