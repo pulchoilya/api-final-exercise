@@ -45,6 +45,7 @@ jobs:
             DATABASE_URL: "mysql://root@localhost:3306/dojo_api"
             JWT_SECRET: "change-me-to-a-random-string-at-least-32-chars"
             UPLOAD_DIR: "/tmp/dojo-api-uploads"
+
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
