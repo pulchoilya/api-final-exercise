@@ -34,10 +34,10 @@ on:
                 default: 3
                 type: number
 
-            env:
-                description: "URL of the API to test"
-                required: true
-                type: environment
+            # env:
+            #     description: "URL of the API to test"
+            #     required: true
+            #     type: environment
 
 jobs:
     test:
