@@ -1,92 +1,92 @@
 name: api tests
 
 on:
-    # push:
-    #     branches: [main]
-    # pull_request:
-    #     branches: [main]
-    workflow_dispatch:
-        inputs:
-            url-options:
-                description: "URL of the API to test"
-                required: true
-                default: "http://localhost:3000"
-                type: choice
-                options:
-                    - "http://localhost:3000"
-                    - "https://api.example.com"
+  # push:
+  #     branches: [main]
+  # pull_request:
+  #     branches: [main]
+  workflow_dispatch:
+    inputs:
+      url-options:
+        description: "URL of the API to test"
+        required: true
+        default: "http://localhost:3000"
+        type: choice
+        options:
+          - "http://localhost:3000"
+          - "https://api.example.com"
 
-            url:
-                description: "URL of the API to test"
-                required: true
-                default: "http://localhost:3000"
-                type: string
+      url:
+        description: "URL of the API to test"
+        required: true
+        default: "http://localhost:3000"
+        type: string
 
-            isReportNeeded:
-                description: "URL of the API to test"
-                required: true
-                default: true
-                type: boolean
+      isReportNeeded:
+        description: "URL of the API to test"
+        required: true
+        default: true
+        type: boolean
 
-            workersCount:
-                description: "How many workers to use for testing"
-                required: true
-                default: 3
-                type: number
+      workersCount:
+        description: "How many workers to use for testing"
+        required: true
+        default: 3
+        type: number
 
-    # env:
-    #     description: "URL of the API to test"
-    #     required: true
-    #     type: environment
+  # env:
+  #     description: "URL of the API to test"
+  #     required: true
+  #     type: environment
 
 jobs:
-    test:
-        env:
-            DATABASE_URL: "mysql://root@localhost:3306/dojo_api"
-            JWT_SECRET: "change-me-to-a-random-string-at-least-32-chars"
-            UPLOAD_DIR: "/tmp/dojo-api-uploads"
+  test:
+    env:
+      DATABASE_URL: ${{ vars.DATABASE_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      UPLOAD_DIR: ${{ vars.UPLOAD_DIR }}
 
-        timeout-minutes: 60
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v5
-            - uses: actions/setup-node@v5
-              with:
-                  node-version: 22.17.1
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.17.1
 
-            - uses: shogo82148/actions-setup-mysql@v1
-              with:
-                  mysql-version: "9.6.0"
-            - run: mysql -uroot -e 'SELECT version()'
+      - uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: "9.6.0"
+      - run: mysql -uroot -e 'SELECT version()'
 
-            - name: Cache node_modules
-              uses: actions/cache@v4
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: ${{ runner.os }}-node-
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
 
-            - name: Install dependencies
-              run: npm install
+      - name: Install dependencies
+        run: npm install
 
-            - name: Push schema to database
-              run: npm run db:push
+      - name: Push schema to database
+        run: npm run db:push
 
-            - name: Seed sample data
-              run: npm run db:seed
+      - name: Seed sample data
+        run: npm run db:seed
 
-            - name: Start development server
-              run: npm run dev &
+      - name: Start development server
+        run: npm run dev &
 
-            - name: Wait for server to be ready
-              run: npx wait-on http://localhost:3000 --timeout 30000
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:3000 --timeout 30000
 
-            - name: Run api tests
-              run: npx playwright test --workers=${{ github.event.inputs.workersCount }}
+      - name: Run api tests
+        run: npx playwright test --workers=${{ github.event.inputs.workersCount }}
 
-            - uses: actions/upload-artifact@v4
-              if: ${{ !cancelled() }}
-              with:
-                  name: playwright-report
-                  path: playwright-report/
-                  retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
