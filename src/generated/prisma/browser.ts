@@ -87,3 +87,23 @@ export type Post = Prisma.PostModel
  * 
  */
 export type YouTubeVideo = Prisma.YouTubeVideoModel
+/**
+ * Model LearningPath
+ * 
+ */
+export type LearningPath = Prisma.LearningPathModel
+/**
+ * Model LearningPathModule
+ * 
+ */
+export type LearningPathModule = Prisma.LearningPathModuleModel
+/**
+ * Model Certificate
+ * 
+ */
+export type Certificate = Prisma.CertificateModel
+/**
+ * Model Instructor
+ * 
+ */
+export type Instructor = Prisma.InstructorModel

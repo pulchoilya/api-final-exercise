@@ -167,6 +167,7 @@ export type CategoryWhereInput = {
   name?: Prisma.StringFilter<"Category"> | string
   slug?: Prisma.StringFilter<"Category"> | string
   courses?: Prisma.CourseListRelationFilter
+  learningPaths?: Prisma.LearningPathListRelationFilter
 }
 
 export type CategoryOrderByWithRelationInput = {
@@ -174,6 +175,7 @@ export type CategoryOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   courses?: Prisma.CourseOrderByRelationAggregateInput
+  learningPaths?: Prisma.LearningPathOrderByRelationAggregateInput
   _relevance?: Prisma.CategoryOrderByRelevanceInput
 }
 
@@ -185,6 +187,7 @@ export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CategoryWhereInput[]
   NOT?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   courses?: Prisma.CourseListRelationFilter
+  learningPaths?: Prisma.LearningPathListRelationFilter
 }, "id" | "name" | "slug">
 
 export type CategoryOrderByWithAggregationInput = {
@@ -210,6 +213,7 @@ export type CategoryCreateInput = {
   name: string
   slug: string
   courses?: Prisma.CourseCreateNestedManyWithoutCategoriesInput
+  learningPaths?: Prisma.LearningPathCreateNestedManyWithoutCategoriesInput
 }
 
 export type CategoryUncheckedCreateInput = {
@@ -217,6 +221,7 @@ export type CategoryUncheckedCreateInput = {
   name: string
   slug: string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutCategoriesInput
+  learningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutCategoriesInput
 }
 
 export type CategoryUpdateInput = {
@@ -224,6 +229,7 @@ export type CategoryUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   courses?: Prisma.CourseUpdateManyWithoutCategoriesNestedInput
+  learningPaths?: Prisma.LearningPathUpdateManyWithoutCategoriesNestedInput
 }
 
 export type CategoryUncheckedUpdateInput = {
@@ -231,6 +237,7 @@ export type CategoryUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutCategoriesNestedInput
+  learningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutCategoriesNestedInput
 }
 
 export type CategoryCreateManyInput = {
@@ -323,16 +330,56 @@ export type CategoryUncheckedUpdateManyWithoutCoursesNestedInput = {
   deleteMany?: Prisma.CategoryScalarWhereInput | Prisma.CategoryScalarWhereInput[]
 }
 
+export type CategoryCreateNestedManyWithoutLearningPathsInput = {
+  create?: Prisma.XOR<Prisma.CategoryCreateWithoutLearningPathsInput, Prisma.CategoryUncheckedCreateWithoutLearningPathsInput> | Prisma.CategoryCreateWithoutLearningPathsInput[] | Prisma.CategoryUncheckedCreateWithoutLearningPathsInput[]
+  connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutLearningPathsInput | Prisma.CategoryCreateOrConnectWithoutLearningPathsInput[]
+  connect?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+}
+
+export type CategoryUncheckedCreateNestedManyWithoutLearningPathsInput = {
+  create?: Prisma.XOR<Prisma.CategoryCreateWithoutLearningPathsInput, Prisma.CategoryUncheckedCreateWithoutLearningPathsInput> | Prisma.CategoryCreateWithoutLearningPathsInput[] | Prisma.CategoryUncheckedCreateWithoutLearningPathsInput[]
+  connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutLearningPathsInput | Prisma.CategoryCreateOrConnectWithoutLearningPathsInput[]
+  connect?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+}
+
+export type CategoryUpdateManyWithoutLearningPathsNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoryCreateWithoutLearningPathsInput, Prisma.CategoryUncheckedCreateWithoutLearningPathsInput> | Prisma.CategoryCreateWithoutLearningPathsInput[] | Prisma.CategoryUncheckedCreateWithoutLearningPathsInput[]
+  connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutLearningPathsInput | Prisma.CategoryCreateOrConnectWithoutLearningPathsInput[]
+  upsert?: Prisma.CategoryUpsertWithWhereUniqueWithoutLearningPathsInput | Prisma.CategoryUpsertWithWhereUniqueWithoutLearningPathsInput[]
+  set?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  disconnect?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  delete?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  connect?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  update?: Prisma.CategoryUpdateWithWhereUniqueWithoutLearningPathsInput | Prisma.CategoryUpdateWithWhereUniqueWithoutLearningPathsInput[]
+  updateMany?: Prisma.CategoryUpdateManyWithWhereWithoutLearningPathsInput | Prisma.CategoryUpdateManyWithWhereWithoutLearningPathsInput[]
+  deleteMany?: Prisma.CategoryScalarWhereInput | Prisma.CategoryScalarWhereInput[]
+}
+
+export type CategoryUncheckedUpdateManyWithoutLearningPathsNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoryCreateWithoutLearningPathsInput, Prisma.CategoryUncheckedCreateWithoutLearningPathsInput> | Prisma.CategoryCreateWithoutLearningPathsInput[] | Prisma.CategoryUncheckedCreateWithoutLearningPathsInput[]
+  connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutLearningPathsInput | Prisma.CategoryCreateOrConnectWithoutLearningPathsInput[]
+  upsert?: Prisma.CategoryUpsertWithWhereUniqueWithoutLearningPathsInput | Prisma.CategoryUpsertWithWhereUniqueWithoutLearningPathsInput[]
+  set?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  disconnect?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  delete?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  connect?: Prisma.CategoryWhereUniqueInput | Prisma.CategoryWhereUniqueInput[]
+  update?: Prisma.CategoryUpdateWithWhereUniqueWithoutLearningPathsInput | Prisma.CategoryUpdateWithWhereUniqueWithoutLearningPathsInput[]
+  updateMany?: Prisma.CategoryUpdateManyWithWhereWithoutLearningPathsInput | Prisma.CategoryUpdateManyWithWhereWithoutLearningPathsInput[]
+  deleteMany?: Prisma.CategoryScalarWhereInput | Prisma.CategoryScalarWhereInput[]
+}
+
 export type CategoryCreateWithoutCoursesInput = {
   id?: string
   name: string
   slug: string
+  learningPaths?: Prisma.LearningPathCreateNestedManyWithoutCategoriesInput
 }
 
 export type CategoryUncheckedCreateWithoutCoursesInput = {
   id?: string
   name: string
   slug: string
+  learningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutCategoriesInput
 }
 
 export type CategoryCreateOrConnectWithoutCoursesInput = {
@@ -365,19 +412,76 @@ export type CategoryScalarWhereInput = {
   slug?: Prisma.StringFilter<"Category"> | string
 }
 
+export type CategoryCreateWithoutLearningPathsInput = {
+  id?: string
+  name: string
+  slug: string
+  courses?: Prisma.CourseCreateNestedManyWithoutCategoriesInput
+}
+
+export type CategoryUncheckedCreateWithoutLearningPathsInput = {
+  id?: string
+  name: string
+  slug: string
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutCategoriesInput
+}
+
+export type CategoryCreateOrConnectWithoutLearningPathsInput = {
+  where: Prisma.CategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.CategoryCreateWithoutLearningPathsInput, Prisma.CategoryUncheckedCreateWithoutLearningPathsInput>
+}
+
+export type CategoryUpsertWithWhereUniqueWithoutLearningPathsInput = {
+  where: Prisma.CategoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.CategoryUpdateWithoutLearningPathsInput, Prisma.CategoryUncheckedUpdateWithoutLearningPathsInput>
+  create: Prisma.XOR<Prisma.CategoryCreateWithoutLearningPathsInput, Prisma.CategoryUncheckedCreateWithoutLearningPathsInput>
+}
+
+export type CategoryUpdateWithWhereUniqueWithoutLearningPathsInput = {
+  where: Prisma.CategoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.CategoryUpdateWithoutLearningPathsInput, Prisma.CategoryUncheckedUpdateWithoutLearningPathsInput>
+}
+
+export type CategoryUpdateManyWithWhereWithoutLearningPathsInput = {
+  where: Prisma.CategoryScalarWhereInput
+  data: Prisma.XOR<Prisma.CategoryUpdateManyMutationInput, Prisma.CategoryUncheckedUpdateManyWithoutLearningPathsInput>
+}
+
 export type CategoryUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  learningPaths?: Prisma.LearningPathUpdateManyWithoutCategoriesNestedInput
 }
 
 export type CategoryUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  learningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutCategoriesNestedInput
 }
 
 export type CategoryUncheckedUpdateManyWithoutCoursesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CategoryUpdateWithoutLearningPathsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  courses?: Prisma.CourseUpdateManyWithoutCategoriesNestedInput
+}
+
+export type CategoryUncheckedUpdateWithoutLearningPathsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutCategoriesNestedInput
+}
+
+export type CategoryUncheckedUpdateManyWithoutLearningPathsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -390,10 +494,12 @@ export type CategoryUncheckedUpdateManyWithoutCoursesInput = {
 
 export type CategoryCountOutputType = {
   courses: number
+  learningPaths: number
 }
 
 export type CategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   courses?: boolean | CategoryCountOutputTypeCountCoursesArgs
+  learningPaths?: boolean | CategoryCountOutputTypeCountLearningPathsArgs
 }
 
 /**
@@ -413,12 +519,20 @@ export type CategoryCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Type
   where?: Prisma.CourseWhereInput
 }
 
+/**
+ * CategoryCountOutputType without action
+ */
+export type CategoryCountOutputTypeCountLearningPathsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LearningPathWhereInput
+}
+
 
 export type CategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   slug?: boolean
   courses?: boolean | Prisma.Category$coursesArgs<ExtArgs>
+  learningPaths?: boolean | Prisma.Category$learningPathsArgs<ExtArgs>
   _count?: boolean | Prisma.CategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["category"]>
 
@@ -433,6 +547,7 @@ export type CategorySelectScalar = {
 export type CategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug", ExtArgs["result"]["category"]>
 export type CategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   courses?: boolean | Prisma.Category$coursesArgs<ExtArgs>
+  learningPaths?: boolean | Prisma.Category$learningPathsArgs<ExtArgs>
   _count?: boolean | Prisma.CategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -440,6 +555,7 @@ export type $CategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Category"
   objects: {
     courses: Prisma.$CoursePayload<ExtArgs>[]
+    learningPaths: Prisma.$LearningPathPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -786,6 +902,7 @@ readonly fields: CategoryFieldRefs;
 export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   courses<T extends Prisma.Category$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Category$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  learningPaths<T extends Prisma.Category$learningPathsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Category$learningPathsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1187,6 +1304,30 @@ export type Category$coursesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.CourseScalarFieldEnum | Prisma.CourseScalarFieldEnum[]
+}
+
+/**
+ * Category.learningPaths
+ */
+export type Category$learningPathsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPath
+   */
+  select?: Prisma.LearningPathSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPath
+   */
+  omit?: Prisma.LearningPathOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathInclude<ExtArgs> | null
+  where?: Prisma.LearningPathWhereInput
+  orderBy?: Prisma.LearningPathOrderByWithRelationInput | Prisma.LearningPathOrderByWithRelationInput[]
+  cursor?: Prisma.LearningPathWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LearningPathScalarFieldEnum | Prisma.LearningPathScalarFieldEnum[]
 }
 
 /**

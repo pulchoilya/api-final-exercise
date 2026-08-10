@@ -69,6 +69,7 @@ model Category {
   slug String @unique
 
   courses Course[]
+  learningPaths LearningPath[]
 }
 
 model Course {
@@ -238,6 +239,73 @@ model YouTubeVideo {
   description String? @db.Text
   position    Int     @default(0)
   isPublished Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  learningPath LearningPath?
+}
+
+// ─── Learning Path Models ──────────────────────────────────────
+
+model LearningPath {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?  @db.Text
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categories  Category[]
+  modules     LearningPathModule[]
+  
+  videoId     String?  @unique
+  video       YouTubeVideo? @relation(fields: [videoId], references: [id])
+
+  certificate Certificate?
+
+  instructorId String
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+
+  @@index([instructorId])
+}
+
+model LearningPathModule {
+  id             String  @id @default(cuid())
+  title          String
+  description    String? @db.Text
+  position       Int
+  learningPathId String
+  
+  learningPath LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([learningPathId])
+}
+
+model Certificate {
+  id             String  @id @default(cuid())
+  name           String
+  description    String? @db.Text
+  templateUrl    String? @db.Text
+  learningPathId String  @unique
+
+  learningPath LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Instructor {
+  id        String  @id @default(cuid())
+  name      String
+  bio       String? @db.Text
+  avatarUrl String? @db.Text
+  
+  learningPaths LearningPath[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

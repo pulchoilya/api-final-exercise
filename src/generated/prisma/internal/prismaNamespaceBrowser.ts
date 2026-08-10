@@ -64,7 +64,11 @@ export const ModelName = {
   UserProgress: 'UserProgress',
   Tag: 'Tag',
   Post: 'Post',
-  YouTubeVideo: 'YouTubeVideo'
+  YouTubeVideo: 'YouTubeVideo',
+  LearningPath: 'LearningPath',
+  LearningPathModule: 'LearningPathModule',
+  Certificate: 'Certificate',
+  Instructor: 'Instructor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -274,6 +278,59 @@ export const YouTubeVideoScalarFieldEnum = {
 export type YouTubeVideoScalarFieldEnum = (typeof YouTubeVideoScalarFieldEnum)[keyof typeof YouTubeVideoScalarFieldEnum]
 
 
+export const LearningPathScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  videoId: 'videoId',
+  instructorId: 'instructorId'
+} as const
+
+export type LearningPathScalarFieldEnum = (typeof LearningPathScalarFieldEnum)[keyof typeof LearningPathScalarFieldEnum]
+
+
+export const LearningPathModuleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  position: 'position',
+  learningPathId: 'learningPathId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LearningPathModuleScalarFieldEnum = (typeof LearningPathModuleScalarFieldEnum)[keyof typeof LearningPathModuleScalarFieldEnum]
+
+
+export const CertificateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  templateUrl: 'templateUrl',
+  learningPathId: 'learningPathId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[keyof typeof CertificateScalarFieldEnum]
+
+
+export const InstructorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  bio: 'bio',
+  avatarUrl: 'avatarUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InstructorScalarFieldEnum = (typeof InstructorScalarFieldEnum)[keyof typeof InstructorScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -437,4 +494,47 @@ export const YouTubeVideoOrderByRelevanceFieldEnum = {
 } as const
 
 export type YouTubeVideoOrderByRelevanceFieldEnum = (typeof YouTubeVideoOrderByRelevanceFieldEnum)[keyof typeof YouTubeVideoOrderByRelevanceFieldEnum]
+
+
+export const LearningPathOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  videoId: 'videoId',
+  instructorId: 'instructorId'
+} as const
+
+export type LearningPathOrderByRelevanceFieldEnum = (typeof LearningPathOrderByRelevanceFieldEnum)[keyof typeof LearningPathOrderByRelevanceFieldEnum]
+
+
+export const LearningPathModuleOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  learningPathId: 'learningPathId'
+} as const
+
+export type LearningPathModuleOrderByRelevanceFieldEnum = (typeof LearningPathModuleOrderByRelevanceFieldEnum)[keyof typeof LearningPathModuleOrderByRelevanceFieldEnum]
+
+
+export const CertificateOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  templateUrl: 'templateUrl',
+  learningPathId: 'learningPathId'
+} as const
+
+export type CertificateOrderByRelevanceFieldEnum = (typeof CertificateOrderByRelevanceFieldEnum)[keyof typeof CertificateOrderByRelevanceFieldEnum]
+
+
+export const InstructorOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  bio: 'bio',
+  avatarUrl: 'avatarUrl'
+} as const
+
+export type InstructorOrderByRelevanceFieldEnum = (typeof InstructorOrderByRelevanceFieldEnum)[keyof typeof InstructorOrderByRelevanceFieldEnum]
 

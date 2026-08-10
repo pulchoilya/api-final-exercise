@@ -240,6 +240,7 @@ export type YouTubeVideoWhereInput = {
   isPublished?: Prisma.BoolFilter<"YouTubeVideo"> | boolean
   createdAt?: Prisma.DateTimeFilter<"YouTubeVideo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"YouTubeVideo"> | Date | string
+  learningPath?: Prisma.XOR<Prisma.LearningPathNullableScalarRelationFilter, Prisma.LearningPathWhereInput> | null
 }
 
 export type YouTubeVideoOrderByWithRelationInput = {
@@ -251,6 +252,7 @@ export type YouTubeVideoOrderByWithRelationInput = {
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  learningPath?: Prisma.LearningPathOrderByWithRelationInput
   _relevance?: Prisma.YouTubeVideoOrderByRelevanceInput
 }
 
@@ -266,6 +268,7 @@ export type YouTubeVideoWhereUniqueInput = Prisma.AtLeast<{
   isPublished?: Prisma.BoolFilter<"YouTubeVideo"> | boolean
   createdAt?: Prisma.DateTimeFilter<"YouTubeVideo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"YouTubeVideo"> | Date | string
+  learningPath?: Prisma.XOR<Prisma.LearningPathNullableScalarRelationFilter, Prisma.LearningPathWhereInput> | null
 }, "id">
 
 export type YouTubeVideoOrderByWithAggregationInput = {
@@ -307,6 +310,7 @@ export type YouTubeVideoCreateInput = {
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  learningPath?: Prisma.LearningPathCreateNestedOneWithoutVideoInput
 }
 
 export type YouTubeVideoUncheckedCreateInput = {
@@ -318,6 +322,7 @@ export type YouTubeVideoUncheckedCreateInput = {
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  learningPath?: Prisma.LearningPathUncheckedCreateNestedOneWithoutVideoInput
 }
 
 export type YouTubeVideoUpdateInput = {
@@ -329,6 +334,7 @@ export type YouTubeVideoUpdateInput = {
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  learningPath?: Prisma.LearningPathUpdateOneWithoutVideoNestedInput
 }
 
 export type YouTubeVideoUncheckedUpdateInput = {
@@ -340,6 +346,7 @@ export type YouTubeVideoUncheckedUpdateInput = {
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  learningPath?: Prisma.LearningPathUncheckedUpdateOneWithoutVideoNestedInput
 }
 
 export type YouTubeVideoCreateManyInput = {
@@ -422,6 +429,87 @@ export type YouTubeVideoSumOrderByAggregateInput = {
   position?: Prisma.SortOrder
 }
 
+export type YouTubeVideoNullableScalarRelationFilter = {
+  is?: Prisma.YouTubeVideoWhereInput | null
+  isNot?: Prisma.YouTubeVideoWhereInput | null
+}
+
+export type YouTubeVideoCreateNestedOneWithoutLearningPathInput = {
+  create?: Prisma.XOR<Prisma.YouTubeVideoCreateWithoutLearningPathInput, Prisma.YouTubeVideoUncheckedCreateWithoutLearningPathInput>
+  connectOrCreate?: Prisma.YouTubeVideoCreateOrConnectWithoutLearningPathInput
+  connect?: Prisma.YouTubeVideoWhereUniqueInput
+}
+
+export type YouTubeVideoUpdateOneWithoutLearningPathNestedInput = {
+  create?: Prisma.XOR<Prisma.YouTubeVideoCreateWithoutLearningPathInput, Prisma.YouTubeVideoUncheckedCreateWithoutLearningPathInput>
+  connectOrCreate?: Prisma.YouTubeVideoCreateOrConnectWithoutLearningPathInput
+  upsert?: Prisma.YouTubeVideoUpsertWithoutLearningPathInput
+  disconnect?: Prisma.YouTubeVideoWhereInput | boolean
+  delete?: Prisma.YouTubeVideoWhereInput | boolean
+  connect?: Prisma.YouTubeVideoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.YouTubeVideoUpdateToOneWithWhereWithoutLearningPathInput, Prisma.YouTubeVideoUpdateWithoutLearningPathInput>, Prisma.YouTubeVideoUncheckedUpdateWithoutLearningPathInput>
+}
+
+export type YouTubeVideoCreateWithoutLearningPathInput = {
+  id?: string
+  title: string
+  videoId: string
+  description?: string | null
+  position?: number
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type YouTubeVideoUncheckedCreateWithoutLearningPathInput = {
+  id?: string
+  title: string
+  videoId: string
+  description?: string | null
+  position?: number
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type YouTubeVideoCreateOrConnectWithoutLearningPathInput = {
+  where: Prisma.YouTubeVideoWhereUniqueInput
+  create: Prisma.XOR<Prisma.YouTubeVideoCreateWithoutLearningPathInput, Prisma.YouTubeVideoUncheckedCreateWithoutLearningPathInput>
+}
+
+export type YouTubeVideoUpsertWithoutLearningPathInput = {
+  update: Prisma.XOR<Prisma.YouTubeVideoUpdateWithoutLearningPathInput, Prisma.YouTubeVideoUncheckedUpdateWithoutLearningPathInput>
+  create: Prisma.XOR<Prisma.YouTubeVideoCreateWithoutLearningPathInput, Prisma.YouTubeVideoUncheckedCreateWithoutLearningPathInput>
+  where?: Prisma.YouTubeVideoWhereInput
+}
+
+export type YouTubeVideoUpdateToOneWithWhereWithoutLearningPathInput = {
+  where?: Prisma.YouTubeVideoWhereInput
+  data: Prisma.XOR<Prisma.YouTubeVideoUpdateWithoutLearningPathInput, Prisma.YouTubeVideoUncheckedUpdateWithoutLearningPathInput>
+}
+
+export type YouTubeVideoUpdateWithoutLearningPathInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  videoId?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type YouTubeVideoUncheckedUpdateWithoutLearningPathInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  videoId?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type YouTubeVideoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -433,6 +521,7 @@ export type YouTubeVideoSelect<ExtArgs extends runtime.Types.Extensions.Internal
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  learningPath?: boolean | Prisma.YouTubeVideo$learningPathArgs<ExtArgs>
 }, ExtArgs["result"]["youTubeVideo"]>
 
 
@@ -449,10 +538,15 @@ export type YouTubeVideoSelectScalar = {
 }
 
 export type YouTubeVideoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "videoId" | "description" | "position" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["youTubeVideo"]>
+export type YouTubeVideoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  learningPath?: boolean | Prisma.YouTubeVideo$learningPathArgs<ExtArgs>
+}
 
 export type $YouTubeVideoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "YouTubeVideo"
-  objects: {}
+  objects: {
+    learningPath: Prisma.$LearningPathPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
@@ -802,6 +896,7 @@ readonly fields: YouTubeVideoFieldRefs;
  */
 export interface Prisma__YouTubeVideoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  learningPath<T extends Prisma.YouTubeVideo$learningPathArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.YouTubeVideo$learningPathArgs<ExtArgs>>): Prisma.Prisma__LearningPathClient<runtime.Types.Result.GetResult<Prisma.$LearningPathPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -856,6 +951,10 @@ export type YouTubeVideoFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
+  /**
    * Filter, which YouTubeVideo to fetch.
    */
   where: Prisma.YouTubeVideoWhereUniqueInput
@@ -874,6 +973,10 @@ export type YouTubeVideoFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Exte
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
+  /**
    * Filter, which YouTubeVideo to fetch.
    */
   where: Prisma.YouTubeVideoWhereUniqueInput
@@ -891,6 +994,10 @@ export type YouTubeVideoFindFirstArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the YouTubeVideo
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
   /**
    * Filter, which YouTubeVideo to fetch.
    */
@@ -940,6 +1047,10 @@ export type YouTubeVideoFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Exten
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
+  /**
    * Filter, which YouTubeVideo to fetch.
    */
   where?: Prisma.YouTubeVideoWhereInput
@@ -987,6 +1098,10 @@ export type YouTubeVideoFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the YouTubeVideo
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
   /**
    * Filter, which YouTubeVideos to fetch.
    */
@@ -1036,6 +1151,10 @@ export type YouTubeVideoCreateArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
+  /**
    * The data needed to create a YouTubeVideo.
    */
   data: Prisma.XOR<Prisma.YouTubeVideoCreateInput, Prisma.YouTubeVideoUncheckedCreateInput>
@@ -1064,6 +1183,10 @@ export type YouTubeVideoUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the YouTubeVideo
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
   /**
    * The data needed to update a YouTubeVideo.
    */
@@ -1105,6 +1228,10 @@ export type YouTubeVideoUpsertArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
+  /**
    * The filter to search for the YouTubeVideo to update in case it exists.
    */
   where: Prisma.YouTubeVideoWhereUniqueInput
@@ -1131,6 +1258,10 @@ export type YouTubeVideoDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
+  /**
    * Filter which YouTubeVideo to delete.
    */
   where: Prisma.YouTubeVideoWhereUniqueInput
@@ -1151,6 +1282,25 @@ export type YouTubeVideoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * YouTubeVideo.learningPath
+ */
+export type YouTubeVideo$learningPathArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPath
+   */
+  select?: Prisma.LearningPathSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPath
+   */
+  omit?: Prisma.LearningPathOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathInclude<ExtArgs> | null
+  where?: Prisma.LearningPathWhereInput
+}
+
+/**
  * YouTubeVideo without action
  */
 export type YouTubeVideoDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1162,4 +1312,8 @@ export type YouTubeVideoDefaultArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the YouTubeVideo
    */
   omit?: Prisma.YouTubeVideoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.YouTubeVideoInclude<ExtArgs> | null
 }

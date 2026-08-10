@@ -15,26 +15,66 @@
     }
   ],
   "tags": [
-    { "name": "Auth", "description": "User registration" },
+    {
+      "name": "Auth",
+      "description": "User registration"
+    },
     {
       "name": "OAuth2",
       "description": "Token management and client registration"
     },
-    { "name": "Courses", "description": "Course CRUD operations" },
-    { "name": "Chapters", "description": "Chapter management within courses" },
-    { "name": "Attachments", "description": "Course file attachments" },
-    { "name": "Purchases", "description": "Course purchasing" },
+    {
+      "name": "Courses",
+      "description": "Course CRUD operations"
+    },
+    {
+      "name": "Chapters",
+      "description": "Chapter management within courses"
+    },
+    {
+      "name": "Attachments",
+      "description": "Course file attachments"
+    },
+    {
+      "name": "Purchases",
+      "description": "Course purchasing"
+    },
     {
       "name": "Promo Codes",
       "description": "Promo code validation and management"
     },
-    { "name": "Progress", "description": "User progress tracking" },
-    { "name": "Categories", "description": "Course categories" },
-    { "name": "Tags", "description": "Blog post tags" },
-    { "name": "Posts", "description": "Blog posts" },
-    { "name": "Videos", "description": "YouTube video management" },
-    { "name": "Admin", "description": "Admin user management" },
-    { "name": "Upload", "description": "File upload and serving" }
+    {
+      "name": "Progress",
+      "description": "User progress tracking"
+    },
+    {
+      "name": "Categories",
+      "description": "Course categories"
+    },
+    {
+      "name": "Tags",
+      "description": "Blog post tags"
+    },
+    {
+      "name": "Posts",
+      "description": "Blog posts"
+    },
+    {
+      "name": "Videos",
+      "description": "YouTube video management"
+    },
+    {
+      "name": "Admin",
+      "description": "Admin user management"
+    },
+    {
+      "name": "Upload",
+      "description": "File upload and serving"
+    },
+    {
+      "name": "Learning Paths",
+      "description": "Composite resource for learning paths"
+    }
   ],
   "components": {
     "securitySchemes": {
@@ -70,44 +110,72 @@
       "Error": {
         "type": "object",
         "properties": {
-          "error": { "type": "string", "example": "Unauthorized" }
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
         },
-        "required": ["error"]
+        "required": [
+          "error"
+        ]
       },
       "OAuthError": {
         "type": "object",
         "properties": {
-          "error": { "type": "string", "example": "invalid_grant" },
+          "error": {
+            "type": "string",
+            "example": "invalid_grant"
+          },
           "error_description": {
             "type": "string",
             "example": "Invalid email or password"
           }
         },
-        "required": ["error"]
+        "required": [
+          "error"
+        ]
       },
       "Success": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean", "example": true }
+          "success": {
+            "type": "boolean",
+            "example": true
+          }
         }
       },
       "User": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "example": "clxyz123abc" },
+          "id": {
+            "type": "string",
+            "example": "clxyz123abc"
+          },
           "email": {
             "type": "string",
             "format": "email",
             "example": "admin@dojo.api"
           },
-          "name": { "type": "string", "example": "Admin User" },
+          "name": {
+            "type": "string",
+            "example": "Admin User"
+          },
           "role": {
             "type": "string",
-            "enum": ["USER", "ADMIN"],
+            "enum": [
+              "USER",
+              "ADMIN"
+            ],
             "example": "ADMIN"
           },
-          "isActive": { "type": "boolean", "example": true },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "TokenResponse": {
@@ -117,56 +185,112 @@
             "type": "string",
             "example": "eyJhbGciOiJIUzI1NiJ9..."
           },
-          "token_type": { "type": "string", "example": "Bearer" },
-          "expires_in": { "type": "integer", "example": 900 },
+          "token_type": {
+            "type": "string",
+            "example": "Bearer"
+          },
+          "expires_in": {
+            "type": "integer",
+            "example": 900
+          },
           "refresh_token": {
             "type": "string",
             "example": "550e8400-e29b-41d4-a716-446655440000"
           },
-          "scope": { "type": "string", "example": "read write" }
+          "scope": {
+            "type": "string",
+            "example": "read write"
+          }
         },
-        "required": ["access_token", "token_type", "expires_in"]
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_in"
+        ]
       },
       "OAuthClient": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "clientId": { "type": "string", "example": "client_abc123def456" },
+          "id": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "string",
+            "example": "client_abc123def456"
+          },
           "clientSecret": {
             "type": "string",
             "description": "Only returned on creation",
             "example": "550e8400e29b41d4a716446655440000"
           },
-          "name": { "type": "string", "example": "My App" },
+          "name": {
+            "type": "string",
+            "example": "My App"
+          },
           "grants": {
             "type": "array",
-            "items": { "type": "string" },
-            "example": ["client_credentials"]
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "client_credentials"
+            ]
           },
           "scopes": {
             "type": "array",
-            "items": { "type": "string" },
-            "example": ["read", "write"]
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "read",
+              "write"
+            ]
           },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Course": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
+          "id": {
+            "type": "string"
+          },
           "title": {
             "type": "string",
             "example": "Introduction to TypeScript"
           },
-          "slug": { "type": "string", "example": "introduction-to-typescript" },
-          "description": { "type": "string", "nullable": true },
-          "imageUrl": { "type": "string", "nullable": true },
-          "price": { "type": "string", "example": "29.99", "nullable": true },
-          "isPublished": { "type": "boolean" },
-          "isListed": { "type": "boolean" },
-          "isFeatured": { "type": "boolean" },
-          "featuredOrder": { "type": "integer" },
+          "slug": {
+            "type": "string",
+            "example": "introduction-to-typescript"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "string",
+            "example": "29.99",
+            "nullable": true
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
+          "isListed": {
+            "type": "boolean"
+          },
+          "isFeatured": {
+            "type": "boolean"
+          },
+          "featuredOrder": {
+            "type": "integer"
+          },
           "outcomes": {
             "type": "string",
             "nullable": true,
@@ -177,46 +301,90 @@
             "nullable": true,
             "description": "JSON array as text"
           },
-          "authorName": { "type": "string", "nullable": true },
-          "authorRole": { "type": "string", "nullable": true },
+          "authorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "authorRole": {
+            "type": "string",
+            "nullable": true
+          },
           "categories": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Category" }
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
           },
           "chapters": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Chapter" }
+            "items": {
+              "$ref": "#/components/schemas/Chapter"
+            }
           },
           "attachments": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Attachment" }
+            "items": {
+              "$ref": "#/components/schemas/Attachment"
+            }
           },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "updatedAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "CourseListItem": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "title": { "type": "string" },
-          "slug": { "type": "string" },
-          "description": { "type": "string", "nullable": true },
-          "imageUrl": { "type": "string", "nullable": true },
-          "price": { "type": "string", "nullable": true },
-          "isPublished": { "type": "boolean" },
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
           "categories": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Category" }
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
           },
           "_count": {
             "type": "object",
             "properties": {
-              "chapters": { "type": "integer" },
-              "purchases": { "type": "integer" }
+              "chapters": {
+                "type": "integer"
+              },
+              "purchases": {
+                "type": "integer"
+              }
             }
           },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "CoursePaginated": {
@@ -224,15 +392,29 @@
         "properties": {
           "data": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/CourseListItem" }
+            "items": {
+              "$ref": "#/components/schemas/CourseListItem"
+            }
           },
           "pagination": {
             "type": "object",
             "properties": {
-              "page": { "type": "integer", "example": 1 },
-              "limit": { "type": "integer", "example": 20 },
-              "total": { "type": "integer", "example": 42 },
-              "totalPages": { "type": "integer", "example": 3 }
+              "page": {
+                "type": "integer",
+                "example": 1
+              },
+              "limit": {
+                "type": "integer",
+                "example": 20
+              },
+              "total": {
+                "type": "integer",
+                "example": 42
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 3
+              }
             }
           }
         }
@@ -240,139 +422,306 @@
       "Chapter": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "title": { "type": "string", "example": "Getting Started" },
-          "description": { "type": "string", "nullable": true },
-          "videoUrl": { "type": "string", "nullable": true },
-          "timecodes": { "type": "string", "nullable": true },
-          "notes": { "type": "string", "nullable": true },
-          "homework": { "type": "string", "nullable": true },
-          "position": { "type": "integer" },
-          "isPublished": { "type": "boolean" },
-          "isFree": { "type": "boolean" },
-          "courseId": { "type": "string" },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "example": "Getting Started"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "videoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "timecodes": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "homework": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "integer"
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
+          "isFree": {
+            "type": "boolean"
+          },
+          "courseId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Attachment": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string", "example": "syllabus.pdf" },
-          "url": { "type": "string", "example": "/api/uploads/abc123.pdf" },
-          "courseId": { "type": "string" },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "syllabus.pdf"
+          },
+          "url": {
+            "type": "string",
+            "example": "/api/uploads/abc123.pdf"
+          },
+          "courseId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Purchase": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "userId": { "type": "string" },
-          "courseId": { "type": "string" },
-          "amount": { "type": "string", "example": "0.00" },
-          "promoCode": { "type": "string", "nullable": true },
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "courseId": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string",
+            "example": "0.00"
+          },
+          "promoCode": {
+            "type": "string",
+            "nullable": true
+          },
           "course": {
             "type": "object",
             "properties": {
-              "id": { "type": "string" },
-              "title": { "type": "string" },
-              "slug": { "type": "string" },
-              "imageUrl": { "type": "string", "nullable": true }
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string",
+                "nullable": true
+              }
             }
           },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "PromoCode": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "code": { "type": "string", "example": "SUMMER50" },
-          "courseId": { "type": "string" },
-          "discountPercent": { "type": "integer", "example": 50 },
-          "maxUses": { "type": "integer", "nullable": true, "example": 100 },
-          "currentUses": { "type": "integer", "example": 12 },
-          "expiresAt": { "type": "string", "format": "date-time" },
-          "isActive": { "type": "boolean" },
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "example": "SUMMER50"
+          },
+          "courseId": {
+            "type": "string"
+          },
+          "discountPercent": {
+            "type": "integer",
+            "example": 50
+          },
+          "maxUses": {
+            "type": "integer",
+            "nullable": true,
+            "example": 100
+          },
+          "currentUses": {
+            "type": "integer",
+            "example": 12
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
           "_count": {
             "type": "object",
             "properties": {
-              "usages": { "type": "integer" }
+              "usages": {
+                "type": "integer"
+              }
             }
           },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "PromoValidation": {
         "type": "object",
         "properties": {
-          "valid": { "type": "boolean" },
-          "discountPercent": { "type": "integer", "example": 50 },
-          "originalPrice": { "type": "number", "example": 29.99 },
-          "finalPrice": { "type": "number", "example": 14.99 },
-          "error": { "type": "string", "nullable": true }
+          "valid": {
+            "type": "boolean"
+          },
+          "discountPercent": {
+            "type": "integer",
+            "example": 50
+          },
+          "originalPrice": {
+            "type": "number",
+            "example": 29.99
+          },
+          "finalPrice": {
+            "type": "number",
+            "example": 14.99
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          }
         }
       },
       "UserProgress": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "userId": { "type": "string" },
-          "chapterId": { "type": "string" },
-          "isCompleted": { "type": "boolean" },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "chapterId": {
+            "type": "string"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "CourseProgress": {
         "type": "object",
         "properties": {
-          "courseId": { "type": "string" },
+          "courseId": {
+            "type": "string"
+          },
           "chapters": {
             "type": "array",
             "items": {
               "type": "object",
               "properties": {
-                "id": { "type": "string" },
-                "title": { "type": "string" },
-                "position": { "type": "integer" },
-                "isCompleted": { "type": "boolean" }
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "isCompleted": {
+                  "type": "boolean"
+                }
               }
             }
           },
-          "completedCount": { "type": "integer", "example": 3 },
-          "totalCount": { "type": "integer", "example": 10 }
+          "completedCount": {
+            "type": "integer",
+            "example": 3
+          },
+          "totalCount": {
+            "type": "integer",
+            "example": 10
+          }
         }
       },
       "Category": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string", "example": "Web Development" },
-          "slug": { "type": "string", "example": "web-development" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "Web Development"
+          },
+          "slug": {
+            "type": "string",
+            "example": "web-development"
+          }
         }
       },
       "Tag": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string", "example": "TypeScript" },
-          "slug": { "type": "string", "example": "typescript" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "TypeScript"
+          },
+          "slug": {
+            "type": "string",
+            "example": "typescript"
+          }
         }
       },
       "Post": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
+          "id": {
+            "type": "string"
+          },
           "title": {
             "type": "string",
             "example": "Getting Started with Next.js"
           },
-          "slug": { "type": "string" },
-          "excerpt": { "type": "string", "nullable": true },
-          "content": { "type": "string", "nullable": true },
-          "imageUrl": { "type": "string", "nullable": true },
-          "isPublished": { "type": "boolean" },
+          "slug": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
           "publishedAt": {
             "type": "string",
             "format": "date-time",
@@ -380,30 +729,201 @@
           },
           "tags": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Tag" }
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
           },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "YouTubeVideo": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "title": { "type": "string", "example": "Course Introduction" },
-          "videoId": { "type": "string", "example": "dQw4w9WgXcQ" },
-          "description": { "type": "string", "nullable": true },
-          "position": { "type": "integer" },
-          "isPublished": { "type": "boolean" },
-          "createdAt": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "example": "Course Introduction"
+          },
+          "videoId": {
+            "type": "string",
+            "example": "dQw4w9WgXcQ"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "integer"
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "FileUploadResponse": {
         "type": "object",
         "properties": {
-          "url": { "type": "string", "example": "/api/uploads/550e8400.pdf" },
-          "name": { "type": "string", "example": "document.pdf" },
-          "size": { "type": "integer", "example": 1048576 },
-          "type": { "type": "string", "example": "application/pdf" }
+          "url": {
+            "type": "string",
+            "example": "/api/uploads/550e8400.pdf"
+          },
+          "name": {
+            "type": "string",
+            "example": "document.pdf"
+          },
+          "size": {
+            "type": "integer",
+            "example": 1048576
+          },
+          "type": {
+            "type": "string",
+            "example": "application/pdf"
+          }
+        }
+      },
+      "LearningPathModule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "integer"
+          },
+          "learningPathId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Certificate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "templateUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "learningPathId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Instructor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LearningPath": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPublished": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningPathModule"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          },
+          "video": {
+            "$ref": "#/components/schemas/YouTubeVideo"
+          },
+          "certificate": {
+            "$ref": "#/components/schemas/Certificate"
+          },
+          "instructor": {
+            "$ref": "#/components/schemas/Instructor"
+          }
         }
       }
     }
@@ -411,7 +931,9 @@
   "paths": {
     "/api/auth/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "operationId": "registerUser",
         "summary": "Register a new user",
         "description": "Create a new user account with email and password. Does not return a token — use POST /api/oauth/token with grant_type=password to log in.",
@@ -421,7 +943,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "password"],
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -448,7 +974,9 @@
             "description": "User created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/User" }
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
               }
             }
           },
@@ -456,7 +984,9 @@
             "description": "Validation error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
               }
             }
           },
@@ -464,7 +994,9 @@
             "description": "Email already registered",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
               }
             }
           }
@@ -473,7 +1005,9 @@
     },
     "/api/oauth/token": {
       "post": {
-        "tags": ["OAuth2"],
+        "tags": [
+          "OAuth2"
+        ],
         "operationId": "getToken",
         "summary": "OAuth2 token endpoint",
         "description": "Obtain an access token using password, client_credentials, or refresh_token grant. Returns a JWT access token (15-min expiry) and optionally a refresh token (30-day expiry with rotation).",
@@ -486,26 +1020,47 @@
                   {
                     "title": "Password Grant",
                     "type": "object",
-                    "required": ["grant_type", "email", "password"],
+                    "required": [
+                      "grant_type",
+                      "email",
+                      "password"
+                    ],
                     "properties": {
-                      "grant_type": { "type": "string", "enum": ["password"] },
+                      "grant_type": {
+                        "type": "string",
+                        "enum": [
+                          "password"
+                        ]
+                      },
                       "email": {
                         "type": "string",
                         "format": "email",
                         "example": "admin@dojo.api"
                       },
-                      "password": { "type": "string", "example": "Password1" },
-                      "scope": { "type": "string", "example": "read write" }
+                      "password": {
+                        "type": "string",
+                        "example": "Password1"
+                      },
+                      "scope": {
+                        "type": "string",
+                        "example": "read write"
+                      }
                     }
                   },
                   {
                     "title": "Client Credentials Grant",
                     "type": "object",
-                    "required": ["grant_type", "client_id", "client_secret"],
+                    "required": [
+                      "grant_type",
+                      "client_id",
+                      "client_secret"
+                    ],
                     "properties": {
                       "grant_type": {
                         "type": "string",
-                        "enum": ["client_credentials"]
+                        "enum": [
+                          "client_credentials"
+                        ]
                       },
                       "client_id": {
                         "type": "string",
@@ -515,17 +1070,25 @@
                         "type": "string",
                         "example": "550e8400e29b41d4a716446655440000"
                       },
-                      "scope": { "type": "string", "example": "read" }
+                      "scope": {
+                        "type": "string",
+                        "example": "read"
+                      }
                     }
                   },
                   {
                     "title": "Refresh Token Grant",
                     "type": "object",
-                    "required": ["grant_type", "refresh_token"],
+                    "required": [
+                      "grant_type",
+                      "refresh_token"
+                    ],
                     "properties": {
                       "grant_type": {
                         "type": "string",
-                        "enum": ["refresh_token"]
+                        "enum": [
+                          "refresh_token"
+                        ]
                       },
                       "refresh_token": {
                         "type": "string",
@@ -568,7 +1131,9 @@
             "description": "Token issued",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/TokenResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
               }
             }
           },
@@ -576,7 +1141,9 @@
             "description": "Invalid request or unsupported grant type",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OAuthError" }
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
               }
             }
           },
@@ -584,7 +1151,9 @@
             "description": "Invalid credentials",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OAuthError" }
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
               }
             }
           }
@@ -593,17 +1162,25 @@
     },
     "/api/oauth/revoke": {
       "post": {
-        "tags": ["OAuth2"],
+        "tags": [
+          "OAuth2"
+        ],
         "operationId": "revokeToken",
         "summary": "Revoke a refresh token",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["token"],
+                "required": [
+                  "token"
+                ],
                 "properties": {
                   "token": {
                     "type": "string",
@@ -619,7 +1196,9 @@
             "description": "Token revoked",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
@@ -627,7 +1206,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
               }
             }
           },
@@ -635,7 +1216,9 @@
             "description": "Token not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
               }
             }
           }
@@ -644,17 +1227,25 @@
     },
     "/api/oauth/userinfo": {
       "get": {
-        "tags": ["OAuth2"],
+        "tags": [
+          "OAuth2"
+        ],
         "operationId": "getUserInfo",
         "summary": "Get current user info",
         "description": "Returns user profile from the JWT access token",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "User info",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/User" }
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
               }
             }
           },
@@ -662,7 +1253,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
               }
             }
           }
@@ -671,10 +1264,16 @@
     },
     "/api/oauth/clients": {
       "get": {
-        "tags": ["OAuth2"],
+        "tags": [
+          "OAuth2"
+        ],
         "operationId": "listClients",
         "summary": "List OAuth2 clients",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of clients (secrets hidden)",
@@ -682,30 +1281,47 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/OAuthClient" }
+                  "items": {
+                    "$ref": "#/components/schemas/OAuthClient"
+                  }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       },
       "post": {
-        "tags": ["OAuth2"],
+        "tags": [
+          "OAuth2"
+        ],
         "operationId": "createClient",
         "summary": "Register a new OAuth2 client",
         "description": "Creates a new OAuth2 client. The client_secret is returned only once — store it securely.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name"],
+                "required": [
+                  "name"
+                ],
                 "properties": {
-                  "name": { "type": "string", "example": "My Integration" },
+                  "name": {
+                    "type": "string",
+                    "example": "My Integration"
+                  },
                   "grants": {
                     "type": "array",
                     "items": {
@@ -716,15 +1332,24 @@
                         "refresh_token"
                       ]
                     },
-                    "example": ["client_credentials"]
+                    "example": [
+                      "client_credentials"
+                    ]
                   },
                   "scopes": {
                     "type": "array",
                     "items": {
                       "type": "string",
-                      "enum": ["read", "write", "admin"]
+                      "enum": [
+                        "read",
+                        "write",
+                        "admin"
+                      ]
                     },
-                    "example": ["read", "write"]
+                    "example": [
+                      "read",
+                      "write"
+                    ]
                   }
                 }
               }
@@ -736,28 +1361,44 @@
             "description": "Client created (secret shown once)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OAuthClient" }
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthClient"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       }
     },
     "/api/oauth/clients/{clientId}": {
       "delete": {
-        "tags": ["OAuth2"],
+        "tags": [
+          "OAuth2"
+        ],
         "operationId": "deleteClient",
         "summary": "Deactivate an OAuth2 client",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "clientId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "The client_id of the OAuth2 client"
           }
         ],
@@ -766,19 +1407,29 @@
             "description": "Client deactivated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" },
-          "404": { "description": "Client not found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          },
+          "404": {
+            "description": "Client not found"
+          }
         }
       }
     },
     "/api/courses": {
       "get": {
-        "tags": ["Courses"],
+        "tags": [
+          "Courses"
+        ],
         "operationId": "listCourses",
         "summary": "List courses",
         "description": "Returns published courses for public users, all courses for admins. Supports pagination, search, and category filtering.",
@@ -786,23 +1437,34 @@
           {
             "name": "page",
             "in": "query",
-            "schema": { "type": "integer", "default": 1 }
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
           },
           {
             "name": "limit",
             "in": "query",
-            "schema": { "type": "integer", "default": 20, "maximum": 50 }
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 50
+            }
           },
           {
             "name": "category",
             "in": "query",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Filter by category slug"
           },
           {
             "name": "search",
             "in": "query",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Search in title and description"
           }
         ],
@@ -811,24 +1473,34 @@
             "description": "Paginated course list",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CoursePaginated" }
+                "schema": {
+                  "$ref": "#/components/schemas/CoursePaginated"
+                }
               }
             }
           }
         }
       },
       "post": {
-        "tags": ["Courses"],
+        "tags": [
+          "Courses"
+        ],
         "operationId": "createCourse",
         "summary": "Create a new course",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["title"],
+                "required": [
+                  "title"
+                ],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -845,19 +1517,29 @@
             "description": "Course created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Course" }
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       }
     },
     "/api/courses/{courseId}": {
       "get": {
-        "tags": ["Courses"],
+        "tags": [
+          "Courses"
+        ],
         "operationId": "getCourse",
         "summary": "Get course details",
         "description": "Returns course with chapters and attachments. Unpublished courses visible only to admins.",
@@ -866,7 +1548,9 @@
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -874,24 +1558,36 @@
             "description": "Course details",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Course" }
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
               }
             }
           },
-          "404": { "description": "Course not found" }
+          "404": {
+            "description": "Course not found"
+          }
         }
       },
       "patch": {
-        "tags": ["Courses"],
+        "tags": [
+          "Courses"
+        ],
         "operationId": "updateCourse",
         "summary": "Update a course",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -901,24 +1597,42 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": { "type": "string" },
-                  "description": { "type": "string" },
-                  "imageUrl": { "type": "string" },
-                  "price": { "type": "number" },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
                   "categoryIds": {
                     "type": "array",
-                    "items": { "type": "string" }
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "outcomes": {
                     "type": "array",
-                    "items": { "type": "string" }
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "requirements": {
                     "type": "array",
-                    "items": { "type": "string" }
+                    "items": {
+                      "type": "string"
+                    }
                   },
-                  "authorName": { "type": "string" },
-                  "authorRole": { "type": "string" }
+                  "authorName": {
+                    "type": "string"
+                  },
+                  "authorRole": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -929,25 +1643,39 @@
             "description": "Course updated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Course" }
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       },
       "delete": {
-        "tags": ["Courses"],
+        "tags": [
+          "Courses"
+        ],
         "operationId": "deleteCourse",
         "summary": "Delete a course",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -955,28 +1683,42 @@
             "description": "Course deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       }
     },
     "/api/courses/{courseId}/publish": {
       "patch": {
-        "tags": ["Courses"],
+        "tags": [
+          "Courses"
+        ],
         "operationId": "togglePublishCourse",
         "summary": "Toggle course publish status",
         "description": "Requires title, description, image, price, and at least one published chapter to publish.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -984,28 +1726,44 @@
             "description": "Publish status toggled",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Course" }
+                "schema": {
+                  "$ref": "#/components/schemas/Course"
+                }
               }
             }
           },
-          "400": { "description": "Missing required fields or chapters" },
-          "401": { "description": "Unauthorized" },
-          "404": { "description": "Course not found" }
+          "400": {
+            "description": "Missing required fields or chapters"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Course not found"
+          }
         }
       }
     },
     "/api/courses/{courseId}/chapters": {
       "post": {
-        "tags": ["Chapters"],
+        "tags": [
+          "Chapters"
+        ],
         "operationId": "createChapter",
         "summary": "Add a chapter to a course",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1014,9 +1772,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["title"],
+                "required": [
+                  "title"
+                ],
                 "properties": {
-                  "title": { "type": "string", "example": "Introduction" }
+                  "title": {
+                    "type": "string",
+                    "example": "Introduction"
+                  }
                 }
               }
             }
@@ -1027,25 +1790,39 @@
             "description": "Chapter created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Chapter" }
+                "schema": {
+                  "$ref": "#/components/schemas/Chapter"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" }
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       },
       "put": {
-        "tags": ["Chapters"],
+        "tags": [
+          "Chapters"
+        ],
         "operationId": "reorderChapters",
         "summary": "Reorder chapters",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1054,15 +1831,21 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["list"],
+                "required": [
+                  "list"
+                ],
                 "properties": {
                   "list": {
                     "type": "array",
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": { "type": "string" },
-                        "position": { "type": "integer" }
+                        "id": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        }
                       }
                     }
                   }
@@ -1076,32 +1859,46 @@
             "description": "Chapters reordered",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/courses/{courseId}/chapters/{chapterId}": {
       "patch": {
-        "tags": ["Chapters"],
+        "tags": [
+          "Chapters"
+        ],
         "operationId": "updateChapter",
         "summary": "Update a chapter",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "chapterId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1111,14 +1908,30 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": { "type": "string" },
-                  "description": { "type": "string" },
-                  "videoUrl": { "type": "string" },
-                  "timecodes": { "type": "string" },
-                  "notes": { "type": "string" },
-                  "homework": { "type": "string" },
-                  "isPublished": { "type": "boolean" },
-                  "isFree": { "type": "boolean" }
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "videoUrl": {
+                    "type": "string"
+                  },
+                  "timecodes": {
+                    "type": "string"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "homework": {
+                    "type": "string"
+                  },
+                  "isPublished": {
+                    "type": "boolean"
+                  },
+                  "isFree": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
@@ -1129,31 +1942,45 @@
             "description": "Chapter updated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Chapter" }
+                "schema": {
+                  "$ref": "#/components/schemas/Chapter"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       },
       "delete": {
-        "tags": ["Chapters"],
+        "tags": [
+          "Chapters"
+        ],
         "operationId": "deleteChapter",
         "summary": "Delete a chapter",
         "description": "If no published chapters remain, the course is automatically unpublished.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "chapterId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1161,26 +1988,38 @@
             "description": "Chapter deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/courses/{courseId}/attachments": {
       "post": {
-        "tags": ["Attachments"],
+        "tags": [
+          "Attachments"
+        ],
         "operationId": "addAttachment",
         "summary": "Add an attachment to a course",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1189,9 +2028,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "url"],
+                "required": [
+                  "name",
+                  "url"
+                ],
                 "properties": {
-                  "name": { "type": "string", "example": "Cheat Sheet.pdf" },
+                  "name": {
+                    "type": "string",
+                    "example": "Cheat Sheet.pdf"
+                  },
                   "url": {
                     "type": "string",
                     "example": "/api/uploads/abc123.pdf"
@@ -1206,33 +2051,49 @@
             "description": "Attachment created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Attachment" }
+                "schema": {
+                  "$ref": "#/components/schemas/Attachment"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" }
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/courses/{courseId}/attachments/{attachmentId}": {
       "delete": {
-        "tags": ["Attachments"],
+        "tags": [
+          "Attachments"
+        ],
         "operationId": "removeAttachment",
         "summary": "Remove an attachment",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "attachmentId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1240,27 +2101,39 @@
             "description": "Attachment removed",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/courses/{courseId}/purchase": {
       "post": {
-        "tags": ["Purchases"],
+        "tags": [
+          "Purchases"
+        ],
         "operationId": "purchaseCourse",
         "summary": "Purchase a course",
         "description": "Mock payment — always succeeds. Optionally apply a promo code for a discount. Creates Purchase record, PromoCodeUsage, and increments counter in a single transaction.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1269,7 +2142,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "promoCode": { "type": "string", "example": "SUMMER50" }
+                  "promoCode": {
+                    "type": "string",
+                    "example": "SUMMER50"
+                  }
                 }
               }
             }
@@ -1280,29 +2156,45 @@
             "description": "Purchase completed",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Purchase" }
+                "schema": {
+                  "$ref": "#/components/schemas/Purchase"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "404": { "description": "Course not found or not published" },
-          "409": { "description": "Already purchased" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Course not found or not published"
+          },
+          "409": {
+            "description": "Already purchased"
+          }
         }
       }
     },
     "/api/courses/{courseId}/validate-promo": {
       "post": {
-        "tags": ["Promo Codes"],
+        "tags": [
+          "Promo Codes"
+        ],
         "operationId": "validatePromoCode",
         "summary": "Validate a promo code",
         "description": "Checks if a promo code is valid for a course. Validates: exists, active, not expired, uses not exceeded, user hasn't already used it. Returns discount info.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1311,9 +2203,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["code"],
+                "required": [
+                  "code"
+                ],
                 "properties": {
-                  "code": { "type": "string", "example": "SUMMER50" }
+                  "code": {
+                    "type": "string",
+                    "example": "SUMMER50"
+                  }
                 }
               }
             }
@@ -1324,21 +2221,33 @@
             "description": "Validation result",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromoValidation" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromoValidation"
+                }
               }
             }
           },
-          "400": { "description": "Code is empty" },
-          "401": { "description": "Unauthorized" }
+          "400": {
+            "description": "Code is empty"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/purchases": {
       "get": {
-        "tags": ["Purchases"],
+        "tags": [
+          "Purchases"
+        ],
         "operationId": "listPurchases",
         "summary": "List user's purchases",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of purchases with course info",
@@ -1346,27 +2255,39 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Purchase" }
+                  "items": {
+                    "$ref": "#/components/schemas/Purchase"
+                  }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/progress/{chapterId}": {
       "put": {
-        "tags": ["Progress"],
+        "tags": [
+          "Progress"
+        ],
         "operationId": "updateProgress",
         "summary": "Update chapter completion",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "chapterId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1375,9 +2296,13 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["isCompleted"],
+                "required": [
+                  "isCompleted"
+                ],
                 "properties": {
-                  "isCompleted": { "type": "boolean" }
+                  "isCompleted": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
@@ -1388,27 +2313,39 @@
             "description": "Progress updated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/UserProgress" }
+                "schema": {
+                  "$ref": "#/components/schemas/UserProgress"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/progress/course/{courseId}": {
       "get": {
-        "tags": ["Progress"],
+        "tags": [
+          "Progress"
+        ],
         "operationId": "getCourseProgress",
         "summary": "Get course progress",
         "description": "Returns completion status for each chapter in a course.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1416,17 +2353,23 @@
             "description": "Course progress",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CourseProgress" }
+                "schema": {
+                  "$ref": "#/components/schemas/CourseProgress"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/categories": {
       "get": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "operationId": "listCategories",
         "summary": "List all categories",
         "responses": {
@@ -1436,7 +2379,9 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Category" }
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
                 }
               }
             }
@@ -1444,17 +2389,25 @@
         }
       },
       "post": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "operationId": "createCategory",
         "summary": "Create a category",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name"],
+                "required": [
+                  "name"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -1471,27 +2424,41 @@
             "description": "Category created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Category" }
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "409": { "description": "Already exists" }
+          "400": {
+            "description": "Validation error"
+          },
+          "409": {
+            "description": "Already exists"
+          }
         }
       }
     },
     "/api/categories/{categoryId}": {
       "delete": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "operationId": "deleteCategory",
         "summary": "Delete a category",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "categoryId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1499,17 +2466,23 @@
             "description": "Category deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/tags": {
       "get": {
-        "tags": ["Tags"],
+        "tags": [
+          "Tags"
+        ],
         "operationId": "listTags",
         "summary": "List all tags",
         "responses": {
@@ -1519,7 +2492,9 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Tag" }
+                  "items": {
+                    "$ref": "#/components/schemas/Tag"
+                  }
                 }
               }
             }
@@ -1527,17 +2502,25 @@
         }
       },
       "post": {
-        "tags": ["Tags"],
+        "tags": [
+          "Tags"
+        ],
         "operationId": "createTag",
         "summary": "Create a tag",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name"],
+                "required": [
+                  "name"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -1554,27 +2537,41 @@
             "description": "Tag created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Tag" }
+                "schema": {
+                  "$ref": "#/components/schemas/Tag"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "409": { "description": "Already exists" }
+          "400": {
+            "description": "Validation error"
+          },
+          "409": {
+            "description": "Already exists"
+          }
         }
       }
     },
     "/api/tags/{tagId}": {
       "delete": {
-        "tags": ["Tags"],
+        "tags": [
+          "Tags"
+        ],
         "operationId": "deleteTag",
         "summary": "Delete a tag",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "tagId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1582,17 +2579,23 @@
             "description": "Tag deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/posts": {
       "get": {
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "operationId": "listPosts",
         "summary": "List published posts",
         "responses": {
@@ -1602,7 +2605,9 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/Post" }
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
                 }
               }
             }
@@ -1610,28 +2615,50 @@
         }
       },
       "post": {
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "operationId": "createPost",
         "summary": "Create a blog post",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["title"],
+                "required": [
+                  "title"
+                ],
                 "properties": {
                   "title": {
                     "type": "string",
                     "minLength": 3,
                     "example": "Getting Started with Next.js"
                   },
-                  "excerpt": { "type": "string" },
-                  "content": { "type": "string" },
-                  "imageUrl": { "type": "string" },
-                  "tagIds": { "type": "array", "items": { "type": "string" } },
-                  "isPublished": { "type": "boolean", "default": false }
+                  "excerpt": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "tagIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isPublished": {
+                    "type": "boolean",
+                    "default": false
+                  }
                 }
               }
             }
@@ -1642,27 +2669,41 @@
             "description": "Post created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Post" }
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" }
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/posts/{postId}": {
       "patch": {
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "operationId": "updatePost",
         "summary": "Update a blog post",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "postId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1672,12 +2713,27 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": { "type": "string" },
-                  "excerpt": { "type": "string" },
-                  "content": { "type": "string" },
-                  "imageUrl": { "type": "string" },
-                  "tagIds": { "type": "array", "items": { "type": "string" } },
-                  "isPublished": { "type": "boolean" }
+                  "title": {
+                    "type": "string"
+                  },
+                  "excerpt": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "imageUrl": {
+                    "type": "string"
+                  },
+                  "tagIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isPublished": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
@@ -1688,24 +2744,36 @@
             "description": "Post updated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Post" }
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       },
       "delete": {
-        "tags": ["Posts"],
+        "tags": [
+          "Posts"
+        ],
         "operationId": "deletePost",
         "summary": "Delete a blog post",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "postId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1713,17 +2781,23 @@
             "description": "Post deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/youtube-videos": {
       "get": {
-        "tags": ["Videos"],
+        "tags": [
+          "Videos"
+        ],
         "operationId": "listVideos",
         "summary": "List published YouTube videos",
         "responses": {
@@ -1733,7 +2807,9 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/YouTubeVideo" }
+                  "items": {
+                    "$ref": "#/components/schemas/YouTubeVideo"
+                  }
                 }
               }
             }
@@ -1741,26 +2817,46 @@
         }
       },
       "post": {
-        "tags": ["Videos"],
+        "tags": [
+          "Videos"
+        ],
         "operationId": "createVideo",
         "summary": "Add a YouTube video",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["title", "videoId"],
+                "required": [
+                  "title",
+                  "videoId"
+                ],
                 "properties": {
                   "title": {
                     "type": "string",
                     "example": "Course Introduction"
                   },
-                  "videoId": { "type": "string", "example": "dQw4w9WgXcQ" },
-                  "description": { "type": "string" },
-                  "position": { "type": "integer", "default": 0 },
-                  "isPublished": { "type": "boolean", "default": false }
+                  "videoId": {
+                    "type": "string",
+                    "example": "dQw4w9WgXcQ"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "integer",
+                    "default": 0
+                  },
+                  "isPublished": {
+                    "type": "boolean",
+                    "default": false
+                  }
                 }
               }
             }
@@ -1771,27 +2867,41 @@
             "description": "Video created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/YouTubeVideo" }
+                "schema": {
+                  "$ref": "#/components/schemas/YouTubeVideo"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "401": { "description": "Unauthorized" }
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/youtube-videos/{videoId}": {
       "patch": {
-        "tags": ["Videos"],
+        "tags": [
+          "Videos"
+        ],
         "operationId": "updateVideo",
         "summary": "Update a YouTube video",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1801,11 +2911,21 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": { "type": "string" },
-                  "videoId": { "type": "string" },
-                  "description": { "type": "string" },
-                  "position": { "type": "integer" },
-                  "isPublished": { "type": "boolean" }
+                  "title": {
+                    "type": "string"
+                  },
+                  "videoId": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "integer"
+                  },
+                  "isPublished": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
@@ -1816,24 +2936,36 @@
             "description": "Video updated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/YouTubeVideo" }
+                "schema": {
+                  "$ref": "#/components/schemas/YouTubeVideo"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       },
       "delete": {
-        "tags": ["Videos"],
+        "tags": [
+          "Videos"
+        ],
         "operationId": "deleteVideo",
         "summary": "Delete a YouTube video",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "videoId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1841,25 +2973,37 @@
             "description": "Video deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           },
-          "401": { "description": "Unauthorized" }
+          "401": {
+            "description": "Unauthorized"
+          }
         }
       }
     },
     "/api/admin/users": {
       "get": {
-        "tags": ["Admin"],
+        "tags": [
+          "Admin"
+        ],
         "operationId": "listUsers",
         "summary": "List/search users",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "search",
             "in": "query",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "Search by name or email"
           }
         ],
@@ -1870,28 +3014,42 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/User" }
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       }
     },
     "/api/admin/users/{userId}": {
       "patch": {
-        "tags": ["Admin"],
+        "tags": [
+          "Admin"
+        ],
         "operationId": "updateUser",
         "summary": "Update a user",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1901,9 +3059,16 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string", "format": "email" },
-                  "isActive": { "type": "boolean" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "isActive": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
@@ -1914,28 +3079,44 @@
             "description": "User updated",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/User" }
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
               }
             }
           },
-          "400": { "description": "No valid fields or update failed" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "400": {
+            "description": "No valid fields or update failed"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       }
     },
     "/api/admin/courses/{courseId}/promo-codes": {
       "get": {
-        "tags": ["Promo Codes"],
+        "tags": [
+          "Promo Codes"
+        ],
         "operationId": "listPromoCodes",
         "summary": "List promo codes for a course",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1945,27 +3126,41 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/PromoCode" }
+                  "items": {
+                    "$ref": "#/components/schemas/PromoCode"
+                  }
                 }
               }
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       },
       "post": {
-        "tags": ["Promo Codes"],
+        "tags": [
+          "Promo Codes"
+        ],
         "operationId": "createPromoCode",
         "summary": "Create a promo code",
         "description": "Code must be 3-20 uppercase chars/digits/hyphens. Discount 1-100%. Expiration must be in the future.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -1974,7 +3169,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["code", "discountPercent", "expiresAt"],
+                "required": [
+                  "code",
+                  "discountPercent",
+                  "expiresAt"
+                ],
                 "properties": {
                   "code": {
                     "type": "string",
@@ -2008,34 +3207,52 @@
             "description": "Promo code created",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromoCode" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromoCode"
+                }
               }
             }
           },
-          "400": { "description": "Validation error" },
-          "404": { "description": "Course not found" },
-          "409": { "description": "Code already exists" }
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Course not found"
+          },
+          "409": {
+            "description": "Code already exists"
+          }
         }
       }
     },
     "/api/admin/courses/{courseId}/promo-codes/{promoCodeId}": {
       "patch": {
-        "tags": ["Promo Codes"],
+        "tags": [
+          "Promo Codes"
+        ],
         "operationId": "togglePromoCode",
         "summary": "Toggle promo code active status",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "promoCodeId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -2043,30 +3260,44 @@
             "description": "Status toggled",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PromoCode" }
+                "schema": {
+                  "$ref": "#/components/schemas/PromoCode"
+                }
               }
             }
           },
-          "404": { "description": "Promo code not found" }
+          "404": {
+            "description": "Promo code not found"
+          }
         }
       },
       "delete": {
-        "tags": ["Promo Codes"],
+        "tags": [
+          "Promo Codes"
+        ],
         "operationId": "deletePromoCode",
         "summary": "Delete a promo code",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "courseId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "promoCodeId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -2074,7 +3305,9 @@
             "description": "Promo code deleted",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Success" }
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
               }
             }
           }
@@ -2083,20 +3316,31 @@
     },
     "/api/upload": {
       "post": {
-        "tags": ["Upload"],
+        "tags": [
+          "Upload"
+        ],
         "operationId": "uploadFile",
         "summary": "Upload a file",
         "description": "Admin only. Max 50 MB. Allowed types: images (JPEG, PNG, GIF, WebP, SVG), PDF, ZIP, text, markdown, JSON, Office docs (DOCX, XLSX, PPTX). Files are stored with UUID filenames.",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["file"],
+                "required": [
+                  "file"
+                ],
                 "properties": {
-                  "file": { "type": "string", "format": "binary" }
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               }
             }
@@ -2107,19 +3351,29 @@
             "description": "File uploaded",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/FileUploadResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadResponse"
+                }
               }
             }
           },
-          "400": { "description": "No file, too large, or type not allowed" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden — admin only" }
+          "400": {
+            "description": "No file, too large, or type not allowed"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          }
         }
       }
     },
     "/api/uploads/{path}": {
       "get": {
-        "tags": ["Upload"],
+        "tags": [
+          "Upload"
+        ],
         "operationId": "serveFile",
         "summary": "Serve an uploaded file",
         "parameters": [
@@ -2127,7 +3381,9 @@
             "name": "path",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "description": "File path (e.g. abc123.pdf)"
           }
         ],
@@ -2135,8 +3391,143 @@
           "200": {
             "description": "File content with appropriate Content-Type"
           },
-          "400": { "description": "Invalid path" },
-          "404": { "description": "File not found" }
+          "400": {
+            "description": "Invalid path"
+          },
+          "404": {
+            "description": "File not found"
+          }
+        }
+      }
+    },
+    "/api/learning-paths": {
+      "post": {
+        "tags": [
+          "Learning Paths"
+        ],
+        "operationId": "createLearningPath",
+        "summary": "Create a learning path with nested resources",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "instructor"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 3,
+                    "example": "Full-Stack Bootcamp"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Complete course"
+                  },
+                  "modules": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "HTML Basics"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    }
+                  },
+                  "categoryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "video": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "videoId": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "certificate": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "templateUrl": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "instructor": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Jane Doe"
+                      },
+                      "bio": {
+                        "type": "string"
+                      },
+                      "avatarUrl": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "LearningPath created with all nested relations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPath"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden — admin only"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
       }
     }
