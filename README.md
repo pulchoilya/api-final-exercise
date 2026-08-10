@@ -2,26 +2,12 @@
 
 Standalone REST API application with OAuth2 authentication and JWT tokens. Built with Next.js 16 (API routes only), Prisma 7, and MariaDB/MySQL.
 
-## Features
-
-- **OAuth2 Provider** — Password grant, client credentials, refresh token rotation
-- **JWT Access Tokens** — HS256 signed, 15-minute expiry
-- **Refresh Tokens** — UUID-based, 30-day expiry, single-use rotation
-- **Course Management** — Full CRUD with chapters, attachments, publish toggle
-- **Promo Codes** — Create, validate, apply with per-user usage tracking
-- **Purchases** — Mock payment with optional promo code discounts
-- **Progress Tracking** — Per-chapter completion status
-- **Blog Posts** — CRUD with tag associations
-- **YouTube Videos** — Video management with ordering
-- **File Upload** — Admin-only, 50MB max, whitelist file types
-- **Swagger Docs** — Interactive API documentation at `/api/docs`
-
 ## Quick Start
 
 ### Prerequisites
 
 - Node.js 20+
-- MySQL or MariaDB database
+- MySQL or MariaDB database (see [mySqlInstall.md](mySqlInstall.md) для інструкцій із встановлення)
 
 ### Setup
 
@@ -57,13 +43,13 @@ You can connect to the database using any MySQL-compatible client or GUI tool.
 
 **Default connection details** (from `.env`):
 
-| Parameter | Value             |
-| --------- | ----------------- |
-| Host      | `localhost`       |
-| Port      | `3306`            |
-| User      | `root`            |
-| Password  | *(from your .env)*|
-| Database  | `dojo_api`        |
+| Parameter | Value              |
+| --------- | ------------------ |
+| Host      | `localhost`        |
+| Port      | `3306`             |
+| User      | `root`             |
+| Password  | _(from your .env)_ |
+| Database  | `dojo_api`         |
 
 ### CLI
 
@@ -159,88 +145,3 @@ curl -X POST http://localhost:3000/api/oauth/token \
 **OAuth Client:** `client_test_app` / `test-secret-do-not-use-in-production`
 
 **Promo Codes:** `WELCOME100` (100% off TS course), `HALF-OFF` (50% off Next.js course)
-
-## API Endpoints Summary
-
-### Auth & OAuth2
-
-| Method | Path                      | Auth   | Description          |
-| ------ | ------------------------- | ------ | -------------------- |
-| POST   | `/api/auth/register`      | Public | Register user        |
-| POST   | `/api/oauth/token`        | Varies | Token endpoint       |
-| POST   | `/api/oauth/revoke`       | Bearer | Revoke refresh token |
-| GET    | `/api/oauth/userinfo`     | Bearer | Current user info    |
-| GET    | `/api/oauth/clients`      | Admin  | List OAuth clients   |
-| POST   | `/api/oauth/clients`      | Admin  | Create OAuth client  |
-| DELETE | `/api/oauth/clients/{id}` | Admin  | Deactivate client    |
-
-### Courses
-
-| Method | Path                        | Auth   | Description              |
-| ------ | --------------------------- | ------ | ------------------------ |
-| GET    | `/api/courses`              | Public | List courses (paginated) |
-| POST   | `/api/courses`              | Admin  | Create course            |
-| GET    | `/api/courses/{id}`         | Public | Get course details       |
-| PATCH  | `/api/courses/{id}`         | Admin  | Update course            |
-| DELETE | `/api/courses/{id}`         | Admin  | Delete course            |
-| PATCH  | `/api/courses/{id}/publish` | Admin  | Toggle publish           |
-
-### Chapters
-
-| Method | Path                                | Auth  | Description      |
-| ------ | ----------------------------------- | ----- | ---------------- |
-| POST   | `/api/courses/{id}/chapters`        | Admin | Create chapter   |
-| PUT    | `/api/courses/{id}/chapters`        | Admin | Reorder chapters |
-| PATCH  | `/api/courses/{id}/chapters/{chId}` | Admin | Update chapter   |
-| DELETE | `/api/courses/{id}/chapters/{chId}` | Admin | Delete chapter   |
-
-### Purchases & Progress
-
-| Method | Path                               | Auth   | Description         |
-| ------ | ---------------------------------- | ------ | ------------------- |
-| POST   | `/api/courses/{id}/purchase`       | Bearer | Purchase course     |
-| POST   | `/api/courses/{id}/validate-promo` | Bearer | Validate promo code |
-| GET    | `/api/purchases`                   | Bearer | List purchases      |
-| PUT    | `/api/progress/{chapterId}`        | Bearer | Update completion   |
-| GET    | `/api/progress/course/{courseId}`  | Bearer | Get course progress |
-
-### Promo Codes (Admin)
-
-| Method | Path                                         | Auth  | Description       |
-| ------ | -------------------------------------------- | ----- | ----------------- |
-| GET    | `/api/admin/courses/{id}/promo-codes`        | Admin | List promo codes  |
-| POST   | `/api/admin/courses/{id}/promo-codes`        | Admin | Create promo code |
-| PATCH  | `/api/admin/courses/{id}/promo-codes/{pcId}` | Admin | Toggle active     |
-| DELETE | `/api/admin/courses/{id}/promo-codes/{pcId}` | Admin | Delete            |
-
-### Content
-
-| Method       | Path                       | Auth         | Description            |
-| ------------ | -------------------------- | ------------ | ---------------------- |
-| GET/POST     | `/api/categories`          | Public/Admin | List/create categories |
-| DELETE       | `/api/categories/{id}`     | Admin        | Delete category        |
-| GET/POST     | `/api/tags`                | Public/Admin | List/create tags       |
-| DELETE       | `/api/tags/{id}`           | Admin        | Delete tag             |
-| GET/POST     | `/api/posts`               | Public/Admin | List/create posts      |
-| PATCH/DELETE | `/api/posts/{id}`          | Admin        | Update/delete post     |
-| GET/POST     | `/api/youtube-videos`      | Public/Admin | List/create videos     |
-| PATCH/DELETE | `/api/youtube-videos/{id}` | Admin        | Update/delete video    |
-
-### Upload & Admin
-
-| Method | Path                    | Auth   | Description         |
-| ------ | ----------------------- | ------ | ------------------- |
-| POST   | `/api/upload`           | Admin  | Upload file         |
-| GET    | `/api/uploads/{path}`   | Public | Serve uploaded file |
-| GET    | `/api/admin/users`      | Admin  | List/search users   |
-| PATCH  | `/api/admin/users/{id}` | Admin  | Update user         |
-
-## Tech Stack
-
-- **Next.js 16.2.1** — API routes only (App Router)
-- **TypeScript** — Strict mode
-- **Prisma 7.6.0** — ORM with MariaDB adapter
-- **jose** — JWT signing/verification (HS256)
-- **bcryptjs** — Password hashing (12 salt rounds)
-- **Zod** — Request validation
-- **@scalar/nextjs** — Interactive API documentation
