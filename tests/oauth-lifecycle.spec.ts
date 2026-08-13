@@ -1,18 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { getAdminToken } from './support/auth';
 
-test('OAuth lifecycle: create client, get token, create entity, cleanup', async ({
-  request,
-}) => {
+test('OAuth lifecycle: create client, get token, create entity, cleanup', async ({ request }) => {
   // 1. Get admin token via password grant
-  const tokenRes = await request.post('/api/oauth/token', {
-    data: {
-      grant_type: 'password',
-      email: 'admin@dojo.api',
-      password: 'Password1',
-    },
-  });
-  expect(tokenRes.status()).toBe(200);
-  const { access_token: adminToken } = await tokenRes.json();
+  const adminToken = await getAdminToken(request);
 
   // 2. Create a new OAuth client
   const clientRes = await request.post('/api/oauth/clients', {

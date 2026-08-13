@@ -3,6 +3,8 @@ node_modules/
 .env
 .env.local
 /tmp/
+.history/
+*.tsbuildinfo
 
 node_modules/
 /test-results/

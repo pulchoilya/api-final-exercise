@@ -1,27 +1,7 @@
 import { test, expect, type APIRequestContext } from '@playwright/test';
+import { ADMIN_EMAIL, ADMIN_PASSWORD, getAdminToken } from './support/auth';
 
-const ADMIN_EMAIL = 'admin@dojo.api';
-const ADMIN_PASSWORD = 'Password1';
-
-async function getAdminToken(request: APIRequestContext) {
-  const response = await request.post('/api/oauth/token', {
-    data: {
-      grant_type: 'password',
-      email: ADMIN_EMAIL,
-      password: ADMIN_PASSWORD,
-    },
-  });
-
-  expect(response.status()).toBe(200);
-  const body = await response.json();
-  expect(body.access_token).toBeTruthy();
-  return body.access_token as string;
-}
-
-async function createOAuthClient(
-  request: APIRequestContext,
-  adminToken: string,
-) {
+async function createOAuthClient(request: APIRequestContext, adminToken: string) {
   const response = await request.post('/api/oauth/clients', {
     headers: { Authorization: `Bearer ${adminToken}` },
     data: {
@@ -36,9 +16,7 @@ async function createOAuthClient(
 }
 
 test.describe('POST /api/oauth/token', () => {
-  test('password grant returns access token plus refresh token', async ({
-    request,
-  }) => {
+  test('password grant returns access token plus refresh token', async ({ request }) => {
     const response = await request.post('/api/oauth/token', {
       data: {
         grant_type: 'password',
@@ -58,9 +36,7 @@ test.describe('POST /api/oauth/token', () => {
     expect(body.scope).toBe('read write');
   });
 
-  test('password grant with invalid credentials returns invalid_grant', async ({
-    request,
-  }) => {
+  test('password grant with invalid credentials returns invalid_grant', async ({ request }) => {
     const response = await request.post('/api/oauth/token', {
       data: {
         grant_type: 'password',
@@ -75,9 +51,7 @@ test.describe('POST /api/oauth/token', () => {
     expect(body.error_description).toBe('Invalid email or password');
   });
 
-  test('password grant with missing fields returns invalid_request', async ({
-    request,
-  }) => {
+  test('password grant with missing fields returns invalid_request', async ({ request }) => {
     const response = await request.post('/api/oauth/token', {
       data: {
         grant_type: 'password',
@@ -91,14 +65,9 @@ test.describe('POST /api/oauth/token', () => {
     // expect(body.error_description).toContain('password');
   });
 
-  test('client_credentials grant returns an access token', async ({
-    request,
-  }) => {
+  test('client_credentials grant returns an access token', async ({ request }) => {
     const adminToken = await getAdminToken(request);
-    const { clientId, clientSecret } = await createOAuthClient(
-      request,
-      adminToken,
-    );
+    const { clientId, clientSecret } = await createOAuthClient(request, adminToken);
 
     const tokenResponse = await request.post('/api/oauth/token', {
       data: {
@@ -138,9 +107,7 @@ test.describe('POST /api/oauth/token', () => {
     expect(body.error_description).toBe('Invalid client credentials');
   });
 
-  test('refresh_token grant rotates refresh token and returns new tokens', async ({
-    request,
-  }) => {
+  test('refresh_token grant rotates refresh token and returns new tokens', async ({ request }) => {
     const passwordResponse = await request.post('/api/oauth/token', {
       data: {
         grant_type: 'password',
@@ -181,9 +148,7 @@ test.describe('POST /api/oauth/token', () => {
     expect(retryBody.error).toBe('invalid_grant');
   });
 
-  test('refresh_token grant with unknown token returns invalid_grant', async ({
-    request,
-  }) => {
+  test('refresh_token grant with unknown token returns invalid_grant', async ({ request }) => {
     const response = await request.post('/api/oauth/token', {
       data: {
         grant_type: 'refresh_token',

@@ -1,19 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { getAdminToken } from './support/auth';
 
-test('POST /api/courses: create a new course with admin token', async ({
-  request,
-}) => {
+test('POST /api/courses: create a new course with admin token', async ({ request }) => {
   // 1. Get admin token via password grant
-  const tokenResponse = await request.post('/api/oauth/token', {
-    data: {
-      grant_type: 'password',
-      email: 'admin@dojo.api',
-      password: 'Password1',
-    },
-  });
-  
-  expect(tokenResponse.status()).toBe(200);
-  const { access_token: adminToken } = await tokenResponse.json();
+  const adminToken = await getAdminToken(request);
 
   // 2. Create a new course
   const courseRes = await request.post('/api/courses', {
