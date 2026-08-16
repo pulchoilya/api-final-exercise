@@ -24,3 +24,20 @@ export async function assertCurrentUser(response: APIResponse, payload: { email:
   expect(body.role).toBe('USER');
   expect(body.isActive).toBe(true);
 }
+
+// This is the admin-only PATCH /api/admin/users/{userId} — any admin can
+// update any user by id, with no self/other ownership check. Not a
+// self-service "update my own profile" endpoint (none exists in this API).
+export async function assertAdminUserUpdated(
+  response: APIResponse,
+  expected: Partial<{ name: string; email: string; isActive: boolean }>,
+) {
+  expect.soft(response.status(), 'status code').toBe(200);
+  assertJsonContentType(response);
+  const body = await response.json();
+  assertValidSchema(currentUserSchema, body);
+  if (expected.name !== undefined) expect(body.name).toBe(expected.name);
+  if (expected.email !== undefined) expect(body.email).toBe(expected.email);
+  if (expected.isActive !== undefined) expect(body.isActive).toBe(expected.isActive);
+  return body as { id: string; name: string; email: string; role: string; isActive: boolean; createdAt: string };
+}
