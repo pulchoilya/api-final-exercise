@@ -118,7 +118,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
-          path: playwright-report/
+          path: tests/playwright-report/
           retention-days: 30
 
       # Пакує той самий звіт у формат для GitHub Pages, щоб його можна було опублікувати
@@ -126,7 +126,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         if: ${{ !cancelled() }}
         with:
-          path: playwright-report/
+          path: tests/playwright-report/
 
   # Публікує запакований у test-джобі звіт на GitHub Pages — стабільний URL,
   # що оновлюється після кожного прогону (без історії по ранах). Запускається

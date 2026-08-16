@@ -20,7 +20,7 @@
     "test": "npx playwright test",
     "test:ci": "npx playwright test --workers=2",
     "test:smoke": "npx playwright test --grep @smoke",
-    "test:report": "npx playwright show-report",
+    "test:report": "npx playwright show-report tests/playwright-report",
 
     "// 4. playwright: by resource (tag filter)": "----------------------",
     "test:auth": "npx playwright test --grep @auth",

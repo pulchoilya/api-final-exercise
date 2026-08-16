@@ -5,7 +5,7 @@ node_modules/
 /tmp/
 .history/
 *.tsbuildinfo
-/playwright/.auth/
+/tests/.auth/
 
 node_modules/
 /test-results/

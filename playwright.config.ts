@@ -11,17 +11,20 @@ export default defineConfig({
   // local dev server/DB predictable. CI overrides this via `--workers=`
   // (see .github/workflows/playwright.yaml), so this is only the local/default value.
   workers: process.env.CI ? 2 : 4,
+  // QA-generated data lives under tests/, not at repo root next to the app's
+  // own source — traces/attachments (outputDir) and both reports below.
+  outputDir: 'tests/test-results',
   reporter: [
     ['list'],
     // 'always' only opens a browser tab on a local machine — the reporter
     // itself skips auto-launching in CI (process.env.CI), so this has no
     // effect on the GitHub Actions run.
-    ['html', { open: 'always' }],
-    ['json', { outputFile: 'test-results/results.json' }],
+    ['html', { open: 'always', outputFolder: 'tests/playwright-report' }],
+    ['json', { outputFile: 'tests/test-results/results.json' }],
   ],
   projects: [
     // Authenticates once as the seeded admin and writes the token to
-    // playwright/.auth/admin.json — see tests/auth.setup.ts. The
+    // tests/.auth/admin.json — see tests/auth.setup.ts. The
     // adminAccessToken fixture reads that file instead of re-authenticating
     // on every test (falls back to a live login if the cache is missing or
     // close to expiring).

@@ -1,14 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-export const ADMIN_TOKEN_CACHE_PATH = path.join(
-  __dirname,
-  '..',
-  '..',
-  'playwright',
-  '.auth',
-  'admin.json',
-);
+export const ADMIN_TOKEN_CACHE_PATH = path.join(__dirname, '..', '.auth', 'admin.json');
 
 type CachedToken = { accessToken: string; expiresAt: number };
 
