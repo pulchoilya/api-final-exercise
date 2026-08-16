@@ -107,11 +107,6 @@ test(
   },
 );
 
-// Parameterized test (Дані: хоча б один параметризований тест) — verifies
-// the validate-promo discount formula (price - price*discountPercent/100)
-// across several price/percentage combinations, not just one hardcoded
-// case. Values are chosen to divide evenly so the expected result is exact,
-// with no float/Decimal-rounding ambiguity to account for.
 const discountScenarios = [
   { id: 'PROMO-05', price: 200, discountPercent: 25, expectedFinalPrice: 150 },
   { id: 'PROMO-06', price: 150, discountPercent: 20, expectedFinalPrice: 120 },
