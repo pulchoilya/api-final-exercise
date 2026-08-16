@@ -2,11 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Note: GET /api/posts has no tag-filter query param at all (confirmed by
-// reading the route handler, which takes no arguments) — the instructor's
-// "filter posts by tags" requirement has nothing to test against, so it's
-// intentionally not covered here. That's a product gap, not a test gap.
-
 test(
   '[POSTS-01] Public post list excludes unpublished posts',
   { tag: ['@posts'] },

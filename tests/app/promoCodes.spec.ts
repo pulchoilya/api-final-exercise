@@ -2,12 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Every test creates its own throwaway course and tracks it for cleanup —
-// PromoCode.courseId cascades on delete (onDelete: Cascade in
-// schema.prisma), so deleting the course cleans up any promo codes (and
-// their usage records) created against it. No separate promo-code cleanup
-// fixture is needed.
-
 test(
   '[PROMO-01] Creating a promo code for a course',
   { tag: ['@promoCodes', '@smoke'] },

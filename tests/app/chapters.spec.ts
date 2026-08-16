@@ -2,10 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// There is no GET for chapters (neither a collection nor a single item) —
-// the only way to read one back is nested inside GET /api/courses/{id},
-// which is how every test below verifies a chapter's effect.
-
 test(
   '[CH-01] Adding chapters assigns auto-incrementing positions',
   { tag: ['@chapters', '@smoke'] },

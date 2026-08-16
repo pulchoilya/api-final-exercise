@@ -2,15 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Only POST /api/learning-paths exists in this API — no list, get-by-id,
-// update, or delete — so coverage is necessarily limited to creation
-// scenarios. There is also no way to clean up what these tests create:
-// the LearningPath (and the Instructor/modules/video/certificate created
-// alongside it) has no delete endpoint at all. This is a real, disclosed
-// limitation, not an oversight — every LearningPath created below is
-// permanent test data, same reasoning as the Purchases suite's note about
-// endpoints with no teardown path.
-
 test(
   '[LP-01] Creating a fully-configured learning path',
   { tag: ['@learningPaths', '@smoke'] },

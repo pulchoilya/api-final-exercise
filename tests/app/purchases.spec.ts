@@ -2,17 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Every test buys with a freshly registered throwaway user (the freshUser
-// fixture), never the shared seeded accounts — Purchase has a unique
-// (userId, courseId) constraint and PromoCodeUsage is tracked per user, so
-// reusing one shared user across tests would collide on both. Purchases
-// have no delete endpoint at all; there's no dedicated cleanup for them —
-// deleting the throwaway course (via trackCourseForCleanup) cascades and
-// removes any Purchase/PromoCodeUsage rows created against it, and the
-// throwaway user itself only gets deactivated (never hard-deleted, same as
-// everywhere else in this suite), leaving an orphaned-but-harmless Purchase
-// row under a deactivated user if the course weren't also cleaned up.
-
 test(
   '[PURCHASE-01] Purchasing with no promo code charges full price',
   { tag: ['@purchases', '@smoke'] },

@@ -2,14 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Note: there is no self-service "update my own profile" endpoint in this
-// API (no /api/users/me or equivalent) — the instructor's "update user
-// data" item is tested here against the only route that updates a user's
-// data at all, PATCH /api/admin/users/{userId}. That route is admin-only
-// and has no self/other ownership check (any admin can update any user by
-// id) — a materially different feature from self-service, tested as-is per
-// an explicit decision with the user.
-
 test(
   "[USERS-01] Admin updates a user's name and email",
   { tag: ['@users', '@smoke'] },
