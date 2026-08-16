@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures';
+import { test, expect } from './fixtures/fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
