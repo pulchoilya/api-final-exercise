@@ -1,19 +1,19 @@
 import { test as base } from '@playwright/test';
-import { AuthApi } from '../api/AuthApi';
-import { OAuthApi } from '../api/OAuthApi';
-import { AdminApi } from '../api/AdminApi';
-import { CoursesApi } from '../api/CoursesApi';
-import { ChaptersApi } from '../api/ChaptersApi';
-import { CoursesSteps } from '../api/CoursesSteps';
-import { TagsApi } from '../api/TagsApi';
-import { PostsApi } from '../api/PostsApi';
-import { PromoCodesApi } from '../api/PromoCodesApi';
-import { PurchasesApi } from '../api/PurchasesApi';
-import { LearningPathsApi } from '../api/LearningPathsApi';
-import { seedAdmin } from '../testData/seedUsers';
-import { createRegisterPayload } from '../testData/factories';
-import { assertStatus } from '../assertions';
-import { readCachedAdminToken } from '../../support/adminTokenCache';
+import { AuthApi } from './api/AuthApi';
+import { OAuthApi } from './api/OAuthApi';
+import { AdminApi } from './api/AdminApi';
+import { CoursesApi } from './api/CoursesApi';
+import { ChaptersApi } from './api/ChaptersApi';
+import { CoursesSteps } from './api/CoursesSteps';
+import { TagsApi } from './api/TagsApi';
+import { PostsApi } from './api/PostsApi';
+import { PromoCodesApi } from './api/PromoCodesApi';
+import { PurchasesApi } from './api/PurchasesApi';
+import { LearningPathsApi } from './api/LearningPathsApi';
+import { seedAdmin } from './testData/seedUsers';
+import { createRegisterPayload } from './testData/factories';
+import { assertStatus } from './assertions';
+import { readCachedAdminToken } from '../support/adminTokenCache';
 
 type FreshUser = { id: string; accessToken: string };
 
