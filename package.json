@@ -3,18 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "// 1. app": "----------------------------------------------------------",
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
     "postinstall": "prisma generate",
     "lint": "eslint",
+
+    "// 2. database": "-----------------------------------------------------",
     "db:seed": "npx tsx prisma/seed.ts",
     "db:clean-test-users": "npx tsx prisma/cleanupTestUsers.ts",
     "db:push": "npx prisma db push",
     "db:studio": "npx prisma studio",
+
+    "// 3. playwright: run scenarios": "---------------------------------",
     "test": "npx playwright test",
+    "test:ci": "npx playwright test --workers=2",
     "test:smoke": "npx playwright test --grep @smoke",
-    "test:report": "npx playwright show-report"
+    "test:report": "npx playwright show-report",
+
+    "// 4. playwright: by resource (tag filter)": "----------------------",
+    "test:auth": "npx playwright test --grep @auth",
+    "test:oauth": "npx playwright test --grep @oauth",
+    "test:users": "npx playwright test --grep @users",
+    "test:courses": "npx playwright test --grep @courses",
+    "test:chapters": "npx playwright test --grep @chapters",
+    "test:tags": "npx playwright test --grep @tags",
+    "test:posts": "npx playwright test --grep @posts",
+    "test:promoCodes": "npx playwright test --grep @promoCodes",
+    "test:purchases": "npx playwright test --grep @purchases",
+    "test:learningPaths": "npx playwright test --grep @learningPaths"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.6.0",
