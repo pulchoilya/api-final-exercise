@@ -1,8 +1,8 @@
 # Test suite conventions
 
-Applies to every spec file under `tests/app/`. Per-file comments only cover
-what's genuinely specific to that resource — this page is the one place for
-everything that's true project-wide.
+Applies to every spec file under `tests/app/`. Spec files themselves have no
+explanatory comments — this page is the one place for the conventions and
+rationale behind how the suite is built.
 
 ## Scope: positive/happy-path only
 
@@ -12,10 +12,12 @@ is public, no auth at all) and asserts a successful response. Negative cases
 deliberately separate follow-up pass — not missing, just out of scope for
 this pass.
 
-The one exception is `oauth.spec.ts`: `OAUTH-07`..`OAUTH-12` assert a handful
+The one exception is `oauth.spec.ts`: `OAUTH-07`..`OAUTH-13` cover a handful
 of grant-type error responses (invalid credentials, invalid secret, unknown
-refresh token, etc.), migrated in from legacy pre-convention spec files
-because they were cheap, deterministic, and not duplicated anywhere else.
+refresh token, etc.) plus one extra positive-path check (a `client_credentials`
+token's `/userinfo` reflects the client, not a user). All were migrated in
+from legacy pre-convention spec files because they were cheap, deterministic,
+and not duplicated anywhere else.
 
 ## Architecture
 
