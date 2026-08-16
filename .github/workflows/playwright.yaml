@@ -1,14 +1,19 @@
 name: api tests
 
 # Тригери воркфлоу:
-# 1. schedule — автоматичний нічний запуск о 00:00 UTC щодня.
-#    Використовує дефолтні значення параметрів (url і workersCount),
-#    тому при плановому запуску github.event.inputs буде null —
-#    BASE_URL і кількість воркерів беруться з default у inputs.
-# 2. workflow_dispatch — ручний запуск через GitHub UI або API.
+# 1. push — автоматичний запуск на кожен push у main, щоб CI гонявся без
+#    ручних дій. github.event.inputs тут завжди null, тому BASE_URL і
+#    кількість воркерів нижче мають явний fallback (localhost:3000 / 3),
+#    що збігається з дефолтами workflow_dispatch.
+# 2. schedule — автоматичний нічний запуск о 00:00 UTC щодня. Так само немає
+#    github.event.inputs — спрацьовує той самий fallback.
+# 3. workflow_dispatch — ручний запуск через GitHub UI або API.
 #    Дозволяє передати URL цільового API і кількість паралельних воркерів
 #    без зміни коду воркфлоу — зручно для запуску тестів на різних оточеннях.
 on:
+  push:
+    branches: [main]
+
   schedule:
     - cron: "0 0 * * *"
 
@@ -38,12 +43,13 @@ jobs:
   test:
     # Змінні середовища, які потрібні серверу і тестам під час виконання джобу.
     # DATABASE_URL / UPLOAD_DIR зберігаються як Variables (не секрети), JWT_SECRET — як Secret.
-    # BASE_URL береться з вхідного параметра воркфлоу, щоб тести знали, куди робити запити.
+    # BASE_URL береться з вхідного параметра воркфлоу (workflow_dispatch), а на push/schedule,
+    # де inputs немає, використовує той самий дефолт, що й сам input, — http://localhost:3000.
     env:
       DATABASE_URL: ${{ vars.DATABASE_URL }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       UPLOAD_DIR: ${{ vars.UPLOAD_DIR }}
-      BASE_URL: ${{ github.event.inputs.url }}
+      BASE_URL: ${{ github.event.inputs.url || 'http://localhost:3000' }}
 
     # Обмежує час виконання джобу 60 хвилинами, щоб уникнути нескінченного зависання
     # і зайвого витрачання хвилин GitHub Actions.
@@ -100,10 +106,11 @@ jobs:
       - name: Wait for server to be ready
         run: npx wait-on http://localhost:3000 --timeout 30000
 
-      # Запускає Playwright-тести з кількістю паралельних воркерів, переданою через параметр.
+      # Запускає Playwright-тести з кількістю паралельних воркерів, переданою через параметр
+      # (або дефолтним значенням 3, коли inputs немає — push/schedule).
       # Більше воркерів — швидший запуск, але більше навантаження на локальний сервер і БД.
       - name: Run api tests
-        run: npx playwright test --workers=${{ github.event.inputs.workersCount }}
+        run: npx playwright test --workers=${{ github.event.inputs.workersCount || 3 }}
 
       # Зберігає HTML-звіт Playwright як артефакт джобу навіть якщо тести впали (if: !cancelled()).
       # Зберігається 30 днів — достатньо для аналізу флапаючих тестів і розбору інцидентів.
