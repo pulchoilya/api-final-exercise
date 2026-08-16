@@ -2,8 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as the other suites.
-//
 // Every test creates its own throwaway course and tracks it for cleanup —
 // PromoCode.courseId cascades on delete (onDelete: Cascade in
 // schema.prisma), so deleting the course cleans up any promo codes (and

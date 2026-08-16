@@ -2,8 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as the other suites.
-//
 // Only POST /api/learning-paths exists in this API — no list, get-by-id,
 // update, or delete — so coverage is necessarily limited to creation
 // scenarios. There is also no way to clean up what these tests create:

@@ -2,11 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as the other suites — valid
-// input from an admin (or public, where the endpoint needs no auth),
-// successful responses only. Negative cases are a deliberately separate
-// pass.
-
 test(
   '[TAGS-01] Tag list includes a freshly created tag',
   { tag: ['@tags'] },

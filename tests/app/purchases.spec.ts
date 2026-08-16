@@ -2,8 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as the other suites.
-//
 // Every test buys with a freshly registered throwaway user (the freshUser
 // fixture), never the shared seeded accounts — Purchase has a unique
 // (userId, courseId) constraint and PromoCodeUsage is tracked per user, so

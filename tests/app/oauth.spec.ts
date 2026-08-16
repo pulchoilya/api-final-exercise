@@ -2,11 +2,10 @@ import { test, expect } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Mostly positive-path, same rule as the other suites — except OAUTH-07..12
-// below, migrated from legacy root-level spec files that predate this
-// convention. Those few grant-type error responses are cheap, deterministic,
-// and were never duplicated elsewhere, so they're kept rather than dropped
-// outright while the rest of the file stays happy-path only.
+// OAUTH-07..12 are the one exception to this suite's positive-only scope
+// (see tests/app/README.md) — grant-type error responses migrated from
+// legacy pre-convention spec files, kept because they're cheap,
+// deterministic, and not duplicated anywhere else.
 
 test(
   '[OAUTH-01] Password grant issues a bearer access token',

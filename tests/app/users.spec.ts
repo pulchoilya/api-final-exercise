@@ -2,8 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as the other suites.
-//
 // Note: there is no self-service "update my own profile" endpoint in this
 // API (no /api/users/me or equivalent) — the instructor's "update user
 // data" item is tested here against the only route that updates a user's

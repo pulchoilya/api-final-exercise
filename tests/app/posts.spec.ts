@@ -2,11 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as the other suites — valid
-// input from an admin (or public, where the endpoint needs no auth),
-// successful responses only. Negative cases are a deliberately separate
-// pass.
-//
 // Note: GET /api/posts has no tag-filter query param at all (confirmed by
 // reading the route handler, which takes no arguments) — the instructor's
 // "filter posts by tags" requirement has nothing to test against, so it's

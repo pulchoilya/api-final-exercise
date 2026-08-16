@@ -2,10 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only, same rule as courses.spec.ts — valid
-// input from an admin, successful responses only. Negative cases (missing
-// auth, validation, non-existent ids) are a deliberately separate pass.
-//
 // There is no GET for chapters (neither a collection nor a single item) —
 // the only way to read one back is nested inside GET /api/courses/{id},
 // which is how every test below verifies a chapter's effect.

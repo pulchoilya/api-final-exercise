@@ -2,17 +2,6 @@ import { test } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
-// Positive/happy-path coverage only for this pass — every test below uses
-// valid input from an authorized admin (or, where the endpoint is public,
-// no auth at all) and asserts a successful response. Negative cases
-// (validation errors, unauthorized/forbidden callers, not-found ids) are a
-// deliberately separate follow-up pass.
-//
-// All response assertions live in ./assertions/course.ts; multi-call setup
-// flows (create+publish, create+add chapters, etc.) live in the
-// coursesSteps fixture (api/CoursesSteps.ts) — a test body only orchestrates
-// which steps run and in what order.
-
 test(
   '[COURSES-01] Admin course list includes unpublished and published courses',
   { tag: ['@courses'] },
