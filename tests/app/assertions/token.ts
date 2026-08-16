@@ -17,3 +17,18 @@ export async function assertTokenResponse(response: APIResponse, expectedExpires
     scope?: string;
   };
 }
+
+export async function assertTokenError(
+  response: APIResponse,
+  expectedStatus: number,
+  expectedError: string,
+  expectedErrorDescription?: string,
+) {
+  expect.soft(response.status(), 'status code').toBe(expectedStatus);
+  assertJsonContentType(response);
+  const body = await response.json();
+  expect(body.error).toBe(expectedError);
+  if (expectedErrorDescription !== undefined) {
+    expect(body.error_description).toBe(expectedErrorDescription);
+  }
+}

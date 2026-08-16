@@ -1,6 +1,10 @@
 import { expect, type APIResponse } from '@playwright/test';
 import { assertValidSchema } from '../schemas/assertValidSchema';
-import { oauthClientsListSchema, oauthClientCreatedSchema } from '../schemas/oauthClient.schema';
+import {
+  oauthClientsListSchema,
+  oauthClientCreatedSchema,
+  type OAuthClientCreated,
+} from '../schemas/oauthClient.schema';
 import type { OAuthClientPayload } from '../api/OAuthApi';
 import { assertJsonContentType } from './shared';
 
@@ -21,5 +25,16 @@ export async function assertOAuthClientCreated(
   const body = await response.json();
   assertValidSchema(oauthClientCreatedSchema, body);
   expect(body.name).toBe(payload.name);
-  return body as { clientId: string };
+  return body as OAuthClientCreated;
+}
+
+// /userinfo returns a different shape for a client_credentials-granted token
+// (no name/email/role — just sub + type) than assertCurrentUser's user-token
+// shape in user.ts.
+export async function assertClientUserInfo(response: APIResponse, clientId: string) {
+  expect.soft(response.status(), 'status code').toBe(200);
+  assertJsonContentType(response);
+  const body = await response.json();
+  expect(body.sub).toBe(clientId);
+  expect(body.type).toBe('client');
 }

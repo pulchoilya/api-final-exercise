@@ -2,6 +2,12 @@ import { test, expect } from './fixtures';
 import * as assertions from './assertions';
 import * as testData from './testData';
 
+// Mostly positive-path, same rule as the other suites — except OAUTH-07..12
+// below, migrated from legacy root-level spec files that predate this
+// convention. Those few grant-type error responses are cheap, deterministic,
+// and were never duplicated elsewhere, so they're kept rather than dropped
+// outright while the rest of the file stays happy-path only.
+
 test(
   '[OAUTH-01] Password grant issues a bearer access token',
   { tag: ['@oauth', '@smoke'] },
@@ -147,5 +153,176 @@ test(
       const clients = await assertions.assertOAuthClientsList(listResponse);
       expect(clients.some((c) => c.clientId === clientId)).toBe(false);
     });
+  },
+);
+
+test(
+  '[OAUTH-07] Password grant with the wrong password is rejected',
+  { tag: ['@oauth'] },
+  async ({ oauthApi }) => {
+    const response = await test.step('request a token with an invalid password', () =>
+      oauthApi.getToken({
+        grant_type: 'password',
+        email: testData.seedAdmin.email,
+        password: 'WrongPassword1',
+      }),
+    );
+
+    await test.step('verify it is rejected as invalid_grant', () =>
+      assertions.assertTokenError(response, 401, 'invalid_grant', 'Invalid email or password'),
+    );
+  },
+);
+
+test(
+  '[OAUTH-08] Password grant with a missing field is rejected',
+  { tag: ['@oauth'] },
+  async ({ oauthApi }) => {
+    const response = await test.step('request a token without a password', () =>
+      // @ts-expect-error deliberately omitting a required field
+      oauthApi.getToken({
+        grant_type: 'password',
+        email: testData.seedAdmin.email,
+      }),
+    );
+
+    await test.step('verify it is rejected as invalid_request', () =>
+      assertions.assertTokenError(response, 400, 'invalid_request'),
+    );
+  },
+);
+
+test(
+  '[OAUTH-09] Client_credentials grant issues an access token with no refresh token',
+  { tag: ['@oauth'] },
+  async ({ oauthApi, adminAccessToken, trackOAuthClientForCleanup }) => {
+    const client = await test.step('register a client_credentials client', async () => {
+      const payload = testData.createOAuthClientPayload();
+      const response = await oauthApi.registerClient(adminAccessToken, payload);
+      return assertions.assertOAuthClientCreated(response, payload);
+    });
+    trackOAuthClientForCleanup(client.clientId);
+
+    const response = await test.step('request a token via client_credentials grant', () =>
+      oauthApi.getToken({
+        grant_type: 'client_credentials',
+        client_id: client.clientId,
+        client_secret: client.clientSecret,
+      }),
+    );
+
+    await test.step('verify the token response has no refresh token', async () => {
+      const body = await assertions.assertTokenResponse(response);
+      expect(body.refresh_token).toBeUndefined();
+    });
+  },
+);
+
+test(
+  '[OAUTH-10] Client_credentials grant with the wrong secret is rejected',
+  { tag: ['@oauth'] },
+  async ({ oauthApi, adminAccessToken, trackOAuthClientForCleanup }) => {
+    const client = await test.step('register a client_credentials client', async () => {
+      const payload = testData.createOAuthClientPayload();
+      const response = await oauthApi.registerClient(adminAccessToken, payload);
+      return assertions.assertOAuthClientCreated(response, payload);
+    });
+    trackOAuthClientForCleanup(client.clientId);
+
+    const response = await test.step('request a token with the wrong client secret', () =>
+      oauthApi.getToken({
+        grant_type: 'client_credentials',
+        client_id: client.clientId,
+        client_secret: 'wrong-secret',
+      }),
+    );
+
+    await test.step('verify it is rejected as invalid_client', () =>
+      assertions.assertTokenError(response, 401, 'invalid_client', 'Invalid client credentials'),
+    );
+  },
+);
+
+test(
+  '[OAUTH-11] Refreshing a token rotates the refresh token and invalidates the old one',
+  { tag: ['@oauth'] },
+  async ({ oauthApi, trackRefreshTokenForCleanup }) => {
+    const original = await test.step('request a token via password grant', async () => {
+      const response = await oauthApi.getToken({
+        grant_type: 'password',
+        email: testData.seedAdmin.email,
+        password: testData.seedAdmin.password,
+      });
+      return assertions.assertTokenResponse(response);
+    });
+
+    const rotated = await test.step('exchange the refresh token for a new pair', async () => {
+      const response = await oauthApi.getToken({
+        grant_type: 'refresh_token',
+        refresh_token: original.refresh_token!,
+      });
+      return assertions.assertTokenResponse(response);
+    });
+    trackRefreshTokenForCleanup(rotated.refresh_token!);
+
+    await test.step('verify the refresh token actually rotated', () => {
+      expect(rotated.refresh_token).not.toBe(original.refresh_token);
+    });
+
+    const reuseResponse = await test.step('verify the old refresh token is now rejected', () =>
+      oauthApi.getToken({
+        grant_type: 'refresh_token',
+        refresh_token: original.refresh_token!,
+      }),
+    );
+    await assertions.assertTokenError(reuseResponse, 401, 'invalid_grant');
+  },
+);
+
+test(
+  '[OAUTH-12] Refreshing with an unknown token is rejected',
+  { tag: ['@oauth'] },
+  async ({ oauthApi }) => {
+    const response = await test.step('request a token with an unknown refresh token', () =>
+      oauthApi.getToken({
+        grant_type: 'refresh_token',
+        refresh_token: 'nonexistent-token',
+      }),
+    );
+
+    await test.step('verify it is rejected as invalid_grant', () =>
+      assertions.assertTokenError(response, 401, 'invalid_grant', 'Invalid refresh token'),
+    );
+  },
+);
+
+test(
+  "[OAUTH-13] A client_credentials token's userinfo reflects the client, not a user",
+  { tag: ['@oauth'] },
+  async ({ oauthApi, adminAccessToken, trackOAuthClientForCleanup }) => {
+    const client = await test.step('register a client_credentials client', async () => {
+      const payload = testData.createOAuthClientPayload();
+      const response = await oauthApi.registerClient(adminAccessToken, payload);
+      return assertions.assertOAuthClientCreated(response, payload);
+    });
+    trackOAuthClientForCleanup(client.clientId);
+
+    const accessToken = await test.step('request a token via client_credentials grant', async () => {
+      const response = await oauthApi.getToken({
+        grant_type: 'client_credentials',
+        client_id: client.clientId,
+        client_secret: client.clientSecret,
+      });
+      const body = await assertions.assertTokenResponse(response);
+      return body.access_token;
+    });
+
+    const response = await test.step('fetch userinfo with the client token', () =>
+      oauthApi.getUserInfo(accessToken),
+    );
+
+    await test.step('verify userinfo reflects the client, not a user', () =>
+      assertions.assertClientUserInfo(response, client.clientId),
+    );
   },
 );
