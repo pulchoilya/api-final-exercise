@@ -13,7 +13,10 @@ export default defineConfig({
   workers: process.env.CI ? 2 : 4,
   reporter: [
     ['list'],
-    ['html', { open: 'never' }],
+    // 'always' only opens a browser tab on a local machine — the reporter
+    // itself skips auto-launching in CI (process.env.CI), so this has no
+    // effect on the GitHub Actions run.
+    ['html', { open: 'always' }],
     ['json', { outputFile: 'test-results/results.json' }],
   ],
   projects: [
