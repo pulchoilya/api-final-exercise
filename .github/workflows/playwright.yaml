@@ -127,3 +127,26 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           path: playwright-report/
+
+  # Публікує запакований у test-джобі звіт на GitHub Pages — стабільний URL,
+  # що оновлюється після кожного прогону (без історії по ранах). Запускається
+  # навіть якщо тести впали (!cancelled(), не only success) — саме тоді звіт
+  # найпотрібніший. Права pages/id-token вже задані у top-level permissions.
+  deploy-report:
+    needs: test
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy report to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # Дублює посилання прямо в Job Summary конкретного run'а, щоб не шукати
+      # його через Environments/Deployments — видно одразу на сторінці джоби.
+      - name: Link the report in the job summary
+        run: |
+          echo "## Playwright HTML report" >> "$GITHUB_STEP_SUMMARY"
+          echo "[Open the report](${{ steps.deployment.outputs.page_url }})" >> "$GITHUB_STEP_SUMMARY"
