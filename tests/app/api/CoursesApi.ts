@@ -82,7 +82,6 @@ export class CoursesApi extends BaseApiClient {
     });
   }
 
-  // Both require a real signed-in user (requireAuth), not admin specifically.
   async validatePromo(accessToken: string, courseId: string, code: string, options?: RequestOptions) {
     return this.request.post(`${this.coursesEndpoint}/${courseId}/validate-promo`, {
       headers: authHeaders(accessToken),

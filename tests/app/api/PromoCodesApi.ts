@@ -13,9 +13,6 @@ function authHeaders(accessToken: string) {
   return { Authorization: `Bearer ${accessToken}` };
 }
 
-// Admin-only promo-code management, nested under a course:
-// /api/admin/courses/{courseId}/promo-codes... — distinct from the
-// user-facing validate/purchase actions, which live on CoursesApi.
 export class PromoCodesApi extends BaseApiClient {
   private promoCodesPath(courseId: string) {
     return `/api/admin/courses/${courseId}/promo-codes`;
@@ -41,7 +38,6 @@ export class PromoCodesApi extends BaseApiClient {
     });
   }
 
-  // Toggles isActive — no body, the route just flips the current value.
   async toggleActive(
     accessToken: string,
     courseId: string,

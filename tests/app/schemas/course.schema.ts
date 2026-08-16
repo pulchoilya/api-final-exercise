@@ -23,12 +23,6 @@ export const chapterSchema = z.object({
 });
 export type Chapter = z.infer<typeof chapterSchema>;
 
-// price is a Prisma Decimal, which serializes to a string (e.g. "29.99") in
-// the JSON response rather than a number.
-//
-// categories/chapters are only present when the route explicitly includes
-// them (only GET /api/courses/{id} does) — create/update/publish return the
-// plain Prisma record with just scalar fields, so both are optional here.
 export const courseSchema = z.object({
   id: z.string(),
   title: z.string(),

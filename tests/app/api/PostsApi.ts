@@ -17,9 +17,6 @@ function authHeaders(accessToken: string) {
   return { Authorization: `Bearer ${accessToken}` };
 }
 
-// GET /api/posts returns a raw array (no pagination envelope, unlike
-// Courses), always scoped to isPublished:true — there is no way to ask for
-// unpublished posts and no query params of any kind (no tag filter either).
 export class PostsApi extends BaseApiClient {
   private postsEndpoint = '/api/posts';
 

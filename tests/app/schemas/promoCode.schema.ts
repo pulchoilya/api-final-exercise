@@ -13,7 +13,6 @@ export const promoCodeSchema = z.object({
 });
 export type PromoCode = z.infer<typeof promoCodeSchema>;
 
-// The admin list endpoint additionally includes a usage count.
 export const promoCodeWithUsageCountSchema = promoCodeSchema.extend({
   _count: z.object({ usages: z.number() }),
 });
@@ -21,10 +20,6 @@ export type PromoCodeWithUsageCount = z.infer<typeof promoCodeWithUsageCountSche
 
 export const promoCodesListSchema = z.array(promoCodeWithUsageCountSchema);
 
-// validate-promo returns one of two distinct shapes depending on `valid`.
-// discountPercent/originalPrice/finalPrice are plain numbers here (already
-// converted server-side), unlike Course.price which stays a Decimal
-// serialized as a string.
 export const validPromoResultSchema = z.object({
   valid: z.literal(true),
   discountPercent: z.number(),

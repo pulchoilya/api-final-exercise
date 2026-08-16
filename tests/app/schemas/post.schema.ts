@@ -16,5 +16,4 @@ export const postSchema = z.object({
 });
 export type PostResponse = z.infer<typeof postSchema>;
 
-// GET /api/posts returns a raw array, no pagination envelope.
 export const postsListSchema = z.array(postSchema);

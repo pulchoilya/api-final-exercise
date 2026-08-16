@@ -7,5 +7,4 @@ export const tagSchema = z.object({
 });
 export type Tag = z.infer<typeof tagSchema>;
 
-// GET /api/tags returns a raw array, no pagination envelope.
 export const tagsListSchema = z.array(tagSchema);

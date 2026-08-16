@@ -84,10 +84,6 @@ export const test = base.extend<AppFixtures>({
     await use(new LearningPathsApi(request));
   },
 
-  // The "setup" project (tests/auth.setup.ts) authenticates once and caches
-  // the token to a file — read it here instead of re-logging-in on every
-  // test. Falls back to a live login if the cache is missing or close to
-  // expiring (e.g. running a single spec file with --no-deps).
   adminAccessToken: async ({ oauthApi }, use) => {
     const cached = readCachedAdminToken();
     if (cached) {
@@ -106,11 +102,6 @@ export const test = base.extend<AppFixtures>({
     await use(body.access_token as string);
   },
 
-  // A throwaway, non-admin, signed-in user — for endpoints like
-  // validate-promo/purchase that require a real authenticated caller but
-  // must NOT be the shared admin (purchases are scoped per-user, and reusing
-  // one shared user across tests would collide on the userId+courseId
-  // uniqueness constraint and on per-user promo-code usage tracking).
   freshUser: async ({ authApi, oauthApi, trackUserForCleanup }, use) => {
     const payload = createRegisterPayload();
 
@@ -130,10 +121,6 @@ export const test = base.extend<AppFixtures>({
     await use({ id: user.id as string, accessToken: tokenBody.access_token as string });
   },
 
-  // Auto-fixture cleanup queues: a test calls track*ForCleanup(id) as soon as it
-  // creates something, and teardown below still runs even if a later assertion
-  // in the test throws (unlike cleanup written at the end of the test body).
-
   trackUserForCleanup: async ({ adminApi, adminAccessToken }, use) => {
     const userIds: string[] = [];
     await use((userId) => {
@@ -151,7 +138,6 @@ export const test = base.extend<AppFixtures>({
       refreshTokens.push(refreshToken);
     });
     for (const refreshToken of refreshTokens) {
-      // Any authenticated token can revoke — the route has no ownership check.
       const response = await oauthApi.revokeToken(adminAccessToken, refreshToken);
       assertStatus(response, 200);
     }
@@ -168,10 +154,6 @@ export const test = base.extend<AppFixtures>({
     }
   },
 
-  // Deliberately does not assert the delete succeeded, unlike the other
-  // track*ForCleanup fixtures above: a test's own Act may already have
-  // deleted its course, and re-deleting an already-deleted course isn't a
-  // real failure worth reporting from teardown.
   trackCourseForCleanup: async ({ coursesApi, adminAccessToken }, use) => {
     const courseIds: string[] = [];
     await use((courseId) => {
@@ -182,8 +164,6 @@ export const test = base.extend<AppFixtures>({
     }
   },
 
-  // Same tolerant, no-assert teardown as trackCourseForCleanup — a test's
-  // own Act may already have deleted its tag/post.
   trackTagForCleanup: async ({ tagsApi, adminAccessToken }, use) => {
     const tagIds: string[] = [];
     await use((tagId) => {

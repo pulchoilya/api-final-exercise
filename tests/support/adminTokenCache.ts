@@ -5,9 +5,6 @@ export const ADMIN_TOKEN_CACHE_PATH = path.join(__dirname, '..', '.auth', 'admin
 
 type CachedToken = { accessToken: string; expiresAt: number };
 
-// Returns undefined (never throws) when the file is missing, unreadable, or
-// within `bufferMs` of expiring — the caller falls back to a live login in
-// all of those cases.
 export function readCachedAdminToken(bufferMs = 30_000): string | undefined {
   try {
     const raw = fs.readFileSync(ADMIN_TOKEN_CACHE_PATH, 'utf-8');
@@ -16,7 +13,6 @@ export function readCachedAdminToken(bufferMs = 30_000): string | undefined {
       return cached.accessToken;
     }
   } catch {
-    // File missing, unreadable, or malformed — treat the same as "no cache".
   }
   return undefined;
 }

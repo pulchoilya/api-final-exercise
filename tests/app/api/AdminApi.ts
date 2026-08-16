@@ -24,8 +24,6 @@ export class AdminApi extends BaseApiClient {
     });
   }
 
-  // The API has no hard-delete for a user — deactivating is the closest thing
-  // to cleanup available for a throwaway test account.
   async deactivateUser(accessToken: string, userId: string, options?: RequestOptions) {
     return this.updateUser(accessToken, userId, { isActive: false }, options);
   }

@@ -5,12 +5,6 @@ import * as assertions from '../assertions';
 import * as testData from '../testData';
 import type { CourseResponse } from '../schemas/course.schema';
 
-// Composite, multi-call setup flows built on top of CoursesApi + ChaptersApi.
-// Each method bundles several endpoint calls — plus the assertions needed to
-// safely chain their results (e.g. reading an id out of a create response
-// before the next call can use it) — into one reusable "Arrange" step, so
-// spec files call one thing instead of repeating the same multi-call
-// sequence.
 export class CoursesSteps {
   constructor(
     private readonly coursesApi: CoursesApi,
@@ -42,10 +36,6 @@ export class CoursesSteps {
     return { course, chapters };
   }
 
-  // Publishing requires: description/imageUrl/price filled in, plus at
-  // least one published chapter — this walks through all of it and returns
-  // the course in its final, published state, plus the chapter that made it
-  // publishable (needed by tests that then delete that chapter).
   async createPublishedCourse(): Promise<{ course: CourseResponse; chapterId: string }> {
     const course = await this.createCourse();
 

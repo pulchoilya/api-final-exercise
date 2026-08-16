@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-// amount is a Prisma Decimal, which serializes to a string (e.g. "29.99"),
-// same as Course.price.
 export const purchaseSchema = z.object({
   id: z.string(),
   userId: z.string(),
@@ -12,8 +10,6 @@ export const purchaseSchema = z.object({
 });
 export type Purchase = z.infer<typeof purchaseSchema>;
 
-// GET /api/purchases includes a nested course summary; POST .../purchase
-// (the create response) does not.
 export const purchaseWithCourseSchema = purchaseSchema.extend({
   course: z.object({
     id: z.string(),

@@ -28,9 +28,6 @@ export async function assertOAuthClientCreated(
   return body as OAuthClientCreated;
 }
 
-// /userinfo returns a different shape for a client_credentials-granted token
-// (no name/email/role — just sub + type) than assertCurrentUser's user-token
-// shape in user.ts.
 export async function assertClientUserInfo(response: APIResponse, clientId: string) {
   expect.soft(response.status(), 'status code').toBe(200);
   assertJsonContentType(response);

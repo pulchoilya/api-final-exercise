@@ -19,8 +19,6 @@ export async function assertLearningPathCreated(
   return body as LearningPathResponse;
 }
 
-// Module position defaults to its array index when not given explicitly —
-// that's what's being verified here alongside title/order.
 export function assertLearningPathModules(
   learningPath: LearningPathResponse,
   expectedTitles: string[],
@@ -37,7 +35,6 @@ export function assertLearningPathHasVideo(
 ) {
   expect(learningPath.video?.title).toBe(expected.title);
   expect(learningPath.video?.videoId).toBe(expected.videoId);
-  // Hardcoded true by the route, regardless of input.
   expect(learningPath.video?.isPublished).toBe(true);
 }
 
@@ -55,8 +52,6 @@ export function assertLearningPathHasCategory(
   expect(learningPath.categories.some((category) => category.id === categoryId)).toBe(true);
 }
 
-// The counterpart to the above — verifies every optional relation was left
-// out when the create payload didn't include it.
 export function assertLearningPathMinimal(learningPath: LearningPathResponse) {
   expect(learningPath.modules).toEqual([]);
   expect(learningPath.categories).toEqual([]);

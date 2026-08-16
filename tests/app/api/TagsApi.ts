@@ -10,7 +10,6 @@ function authHeaders(accessToken: string) {
   return { Authorization: `Bearer ${accessToken}` };
 }
 
-// GET /api/tags returns a raw array (no pagination envelope, unlike Courses).
 export class TagsApi extends BaseApiClient {
   private tagsEndpoint = '/api/tags';
 

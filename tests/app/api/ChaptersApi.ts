@@ -27,10 +27,6 @@ function authHeaders(accessToken: string) {
   return { Authorization: `Bearer ${accessToken}` };
 }
 
-// Chapters are always addressed under their parent course
-// (/api/courses/{courseId}/chapters...) — there is no GET here (neither a
-// collection nor a single-item endpoint); a chapter can only be read back
-// nested inside GET /api/courses/{courseId}.
 export class ChaptersApi extends BaseApiClient {
   private chaptersPath(courseId: string) {
     return `/api/courses/${courseId}/chapters`;

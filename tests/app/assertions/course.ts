@@ -36,9 +36,6 @@ export async function assertCourseDetails(
   return body as CourseResponse;
 }
 
-// Only checks the scalar fields the update endpoint actually reflects in its
-// own response — categories are a relation, only present via a follow-up
-// GET (see the comment on courseSchema).
 export async function assertCourseUpdated(response: APIResponse, payload: UpdateCoursePayload) {
   expect.soft(response.status(), 'status code').toBe(200);
   assertJsonContentType(response);

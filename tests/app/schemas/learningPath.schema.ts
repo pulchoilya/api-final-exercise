@@ -11,8 +11,6 @@ export const learningPathModuleSchema = z.object({
   updatedAt: z.string(),
 });
 
-// The video is always created with isPublished:true hardcoded by the route,
-// regardless of any input — not a field the caller controls.
 export const youtubeVideoSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -34,8 +32,6 @@ export const certificateSchema = z.object({
   updatedAt: z.string(),
 });
 
-// Always freshly created by POST /api/learning-paths — there's no way to
-// attach an existing Instructor by id via this endpoint.
 export const instructorSchema = z.object({
   id: z.string(),
   name: z.string(),
