@@ -19,6 +19,18 @@ token's `/userinfo` reflects the client, not a user). All were migrated in
 from legacy pre-convention spec files because they were cheap, deterministic,
 and not duplicated anywhere else.
 
+## Known limitations
+
+Two scenarios named in the assignment brief have no test because the API
+itself doesn't support them yet:
+
+- **Posts: filter by tags** — `GET /api/posts` takes no query parameters at
+  all; it always returns the full published list. `PostsApi.list()` has no
+  filter arguments to match.
+- **Learning paths: read/update/delete** — `/api/learning-paths` only
+  exposes `POST`. There's no list/get/update/delete route, so `LP-01`..`LP-03`
+  (creation only) is the full coverage the API currently allows.
+
 ## Architecture
 
 - **API Client** (`api/*.ts`) — one class per resource (`CoursesApi`,
@@ -33,7 +45,7 @@ and not duplicated anywhere else.
   one multi-step setup flow (e.g. create a course + add chapters + publish).
   Anything that would otherwise be a helper *function* in a spec file belongs
   here instead.
-- **Fixtures** (`fixtures/index.ts`) — dependency injection for API Clients,
+- **Fixtures** (`fixtures/fixtures.ts`) — dependency injection for API Clients,
   Steps, tokens (including the cached admin token), and `track*ForCleanup`
   queues that tear down created data after each test.
 - **Factories** (`testData/factories.ts`) — one `createXPayload()` per
