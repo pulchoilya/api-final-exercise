@@ -7,7 +7,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
   },
-  workers: process.env.CI ? 2 : 4,
+  workers: 4,
   outputDir: 'tests/test-results',
   reporter: [
     ['list'],
