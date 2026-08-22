@@ -25,31 +25,27 @@ export type ListCoursesParams = {
 
 type RequestOptions = { failOnStatusCode?: boolean };
 
-function authHeaders(accessToken?: string) {
-  return accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined;
-}
-
 export class CoursesApi extends BaseApiClient {
   private coursesEndpoint = '/api/courses';
 
   async list(params?: ListCoursesParams, accessToken?: string, options?: RequestOptions) {
     return this.request.get(this.coursesEndpoint, {
       params,
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
 
   async get(courseId: string, accessToken?: string, options?: RequestOptions) {
     return this.request.get(`${this.coursesEndpoint}/${courseId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
 
   async create(accessToken: string, payload: CreateCoursePayload, options?: RequestOptions) {
     return this.request.post(this.coursesEndpoint, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -62,7 +58,7 @@ export class CoursesApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.patch(`${this.coursesEndpoint}/${courseId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -70,21 +66,21 @@ export class CoursesApi extends BaseApiClient {
 
   async remove(accessToken: string, courseId: string, options?: RequestOptions) {
     return this.request.delete(`${this.coursesEndpoint}/${courseId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
 
   async publish(accessToken: string, courseId: string, options?: RequestOptions) {
     return this.request.patch(`${this.coursesEndpoint}/${courseId}/publish`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
 
   async validatePromo(accessToken: string, courseId: string, code: string, options?: RequestOptions) {
     return this.request.post(`${this.coursesEndpoint}/${courseId}/validate-promo`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: { code },
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -97,7 +93,7 @@ export class CoursesApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.post(`${this.coursesEndpoint}/${courseId}/purchase`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: promoCode ? { promoCode } : {},
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });

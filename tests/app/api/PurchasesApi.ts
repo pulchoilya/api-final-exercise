@@ -7,7 +7,7 @@ export class PurchasesApi extends BaseApiClient {
 
   async list(accessToken: string, options?: RequestOptions) {
     return this.request.get(this.purchasesEndpoint, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }

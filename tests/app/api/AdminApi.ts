@@ -18,7 +18,7 @@ export class AdminApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.patch(`${this.usersEndpoint}/${userId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });

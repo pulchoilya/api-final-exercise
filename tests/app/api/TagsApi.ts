@@ -6,10 +6,6 @@ export type CreateTagPayload = {
 
 type RequestOptions = { failOnStatusCode?: boolean };
 
-function authHeaders(accessToken: string) {
-  return { Authorization: `Bearer ${accessToken}` };
-}
-
 export class TagsApi extends BaseApiClient {
   private tagsEndpoint = '/api/tags';
 
@@ -21,7 +17,7 @@ export class TagsApi extends BaseApiClient {
 
   async create(accessToken: string, payload: CreateTagPayload, options?: RequestOptions) {
     return this.request.post(this.tagsEndpoint, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -29,7 +25,7 @@ export class TagsApi extends BaseApiClient {
 
   async remove(accessToken: string, tagId: string, options?: RequestOptions) {
     return this.request.delete(`${this.tagsEndpoint}/${tagId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }

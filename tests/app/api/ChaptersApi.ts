@@ -23,10 +23,6 @@ export type ReorderChapterEntry = {
 
 type RequestOptions = { failOnStatusCode?: boolean };
 
-function authHeaders(accessToken: string) {
-  return { Authorization: `Bearer ${accessToken}` };
-}
-
 export class ChaptersApi extends BaseApiClient {
   private chaptersPath(courseId: string) {
     return `/api/courses/${courseId}/chapters`;
@@ -39,7 +35,7 @@ export class ChaptersApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.post(this.chaptersPath(courseId), {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -53,7 +49,7 @@ export class ChaptersApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.patch(`${this.chaptersPath(courseId)}/${chapterId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -66,7 +62,7 @@ export class ChaptersApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.delete(`${this.chaptersPath(courseId)}/${chapterId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
@@ -78,7 +74,7 @@ export class ChaptersApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.put(this.chaptersPath(courseId), {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: { list },
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });

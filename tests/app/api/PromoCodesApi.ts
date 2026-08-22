@@ -9,10 +9,6 @@ export type CreatePromoCodePayload = {
 
 type RequestOptions = { failOnStatusCode?: boolean };
 
-function authHeaders(accessToken: string) {
-  return { Authorization: `Bearer ${accessToken}` };
-}
-
 export class PromoCodesApi extends BaseApiClient {
   private promoCodesPath(courseId: string) {
     return `/api/admin/courses/${courseId}/promo-codes`;
@@ -20,7 +16,7 @@ export class PromoCodesApi extends BaseApiClient {
 
   async list(accessToken: string, courseId: string, options?: RequestOptions) {
     return this.request.get(this.promoCodesPath(courseId), {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
@@ -32,7 +28,7 @@ export class PromoCodesApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.post(this.promoCodesPath(courseId), {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -45,7 +41,7 @@ export class PromoCodesApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.patch(`${this.promoCodesPath(courseId)}/${promoCodeId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
@@ -57,7 +53,7 @@ export class PromoCodesApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.delete(`${this.promoCodesPath(courseId)}/${promoCodeId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }

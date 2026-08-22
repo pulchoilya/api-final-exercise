@@ -13,10 +13,6 @@ export type UpdatePostPayload = Partial<CreatePostPayload>;
 
 type RequestOptions = { failOnStatusCode?: boolean };
 
-function authHeaders(accessToken: string) {
-  return { Authorization: `Bearer ${accessToken}` };
-}
-
 export class PostsApi extends BaseApiClient {
   private postsEndpoint = '/api/posts';
 
@@ -28,7 +24,7 @@ export class PostsApi extends BaseApiClient {
 
   async create(accessToken: string, payload: CreatePostPayload, options?: RequestOptions) {
     return this.request.post(this.postsEndpoint, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -41,7 +37,7 @@ export class PostsApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.patch(`${this.postsEndpoint}/${postId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -49,7 +45,7 @@ export class PostsApi extends BaseApiClient {
 
   async remove(accessToken: string, postId: string, options?: RequestOptions) {
     return this.request.delete(`${this.postsEndpoint}/${postId}`, {
-      headers: authHeaders(accessToken),
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }

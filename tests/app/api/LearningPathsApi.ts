@@ -21,7 +21,7 @@ export class LearningPathsApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.post(this.learningPathsEndpoint, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });

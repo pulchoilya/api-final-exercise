@@ -51,7 +51,7 @@ export class OAuthApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.post(this.revokeEndpoint, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       data: { token: refreshToken },
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -59,14 +59,14 @@ export class OAuthApi extends BaseApiClient {
 
   async getUserInfo(accessToken?: string, options?: RequestOptions) {
     return this.request.get(this.userinfoEndpoint, {
-      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
 
   async listClients(accessToken: string, options?: RequestOptions) {
     return this.request.get(this.clientsEndpoint, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
@@ -77,7 +77,7 @@ export class OAuthApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.post(this.clientsEndpoint, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       data: payload,
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
@@ -89,7 +89,7 @@ export class OAuthApi extends BaseApiClient {
     options?: RequestOptions,
   ) {
     return this.request.delete(`${this.clientsEndpoint}/${clientId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: this.authHeaders(accessToken),
       failOnStatusCode: options?.failOnStatusCode ?? false,
     });
   }
